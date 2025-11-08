@@ -1,7 +1,7 @@
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
-import { StyleSheet, TouchableOpacity, View } from "react-native";
-import { BodyText, TitleText } from '../../components';
+import { StyleSheet, View } from "react-native";
+import { BodyText, SelectButton, SelectButtonContainer, TitleText } from '../../components';
 import { useTheme } from '../../contexts/ThemeContext';
 
 const SettingsScreen = () => {
@@ -11,28 +11,34 @@ const SettingsScreen = () => {
   return ( 
     <View style={[styles.container, { backgroundColor: theme.backgroundColor }]}>
       {/* Section header */}
-      <View style={{ marginBottom: 20 }}>
-        <TitleText style={{ marginBottom: 20 }}>Display</TitleText>
+      <View style={{ marginBottom: 12 }}>
+        <TitleText>Display</TitleText>
       </View>
 
       {/* Container for settings buttons */}
-      <View style={styles.section}>
-        <TouchableOpacity
-          style={[styles.preference, { backgroundColor: theme.headerColor, borderColor: theme.color }]}
+      <SelectButtonContainer>
+        <SelectButton 
           onPress={() => router.push('/settings-theme')}
         >
-          <BodyText>Theme</BodyText>
-          <Ionicons name="chevron-forward-outline" size={18} color={theme.color} />
-        </TouchableOpacity>
+          <View style={styles.leftContent}>
+            <Ionicons name="brush-outline" size={20} color={theme.color} />
+            <BodyText>Theme</BodyText>
+          </View>
 
-        <TouchableOpacity
-          style={[styles.preference, { backgroundColor: theme.headerColor, borderColor: theme.color }]}
+          <Ionicons name="chevron-forward-outline" size={20} color={theme.color} />
+        </SelectButton>
+
+        <SelectButton
           onPress={() => router.push('/settings-text')}
         >
-          <BodyText>Text</BodyText>
-          <Ionicons name="chevron-forward-outline" size={18} color={theme.color} />
-        </TouchableOpacity>
-      </View>
+          <View style={styles.leftContent}>
+            <Ionicons name="document-text-outline" size={20} color={theme.color} />
+            <BodyText>Text</BodyText>
+          </View>
+
+          <Ionicons name="chevron-forward-outline" size={20} color={theme.color} />
+        </SelectButton>
+      </SelectButtonContainer>
     </View>
   );
 }
@@ -42,17 +48,10 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
   },
-  section: {
-    rowGap: 0,
-  },
-  preference: {
+  leftContent: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
-    padding: 18,
-    marginBottom: 12,
-    borderRadius: 12,
-    borderWidth: 2, 
+    gap: 15,
   },
 });
 

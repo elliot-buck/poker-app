@@ -81,4 +81,9 @@
 ## 2.1 - Setup Menu
 
 ### 2.1.1 - Opening setup menu
-- Create index and layout files for setup-menu
+
+- Created index and layout files for setup-menu
+- Created custom button class **CLASS**
+- Fixed import error
+- Rerouted 'Play Poker' button to the setup menu
+- Added 'CentredButton' and 'SpaceBetweenButton'

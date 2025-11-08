@@ -9,7 +9,8 @@ const BodyText = ({ style, children, ...props }) => {
   return (
     <Text 
       style={[
-        {fontFamily: theme.font, fontSize: 16 * theme.fontSize, color: theme.color}, 
+        {fontFamily: theme.font, fontSize: 16 * theme.fontSize, color: theme.color},
+        style 
       ]} 
       {...props}
     >

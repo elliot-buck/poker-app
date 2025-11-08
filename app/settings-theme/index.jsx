@@ -1,6 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
-import { HeaderText, TitleText } from '../../components';
+import { StyleSheet, View } from 'react-native';
+import { BodyText, SelectButton, SelectButtonContainer, TitleText } from '../../components';
 import { useTheme } from '../../contexts/ThemeContext';
 
 const SettingsThemeScreen = () => {
@@ -76,20 +76,22 @@ const SettingsThemeScreen = () => {
     <View style={[styles.container, { backgroundColor: theme.backgroundColor }]}>
       
       {/* Title text - uses current theme's font color */}
-      <View style={{marginBottom: 20}}>
+      <View style={{marginBottom: 12}}>
         <TitleText>Select Theme</TitleText>
       </View>
+
+      <SelectButtonContainer>
+
       {/* Loop through all themes and create a button for each one */}
       {themes.map((themeOption) => (
-        <TouchableOpacity
+        <SelectButton
           key={themeOption.id}
           
           // Apply styles - basic themeOption style along with themeOption colors, plus selected style if this is the selected theme
           style={[
-            styles.themeOption,
             theme.id === themeOption.id && styles.selected,
-            { borderColor: theme.id === themeOption.id ? '#007AFF' : themeOption.color, 
-              backgroundColor: themeOption.headerColor
+            { borderColor: theme.id === themeOption.id ? '#007AFF' : 'transparent', 
+              backgroundColor: themeOption.headerColor,
             }
           ]}
           
@@ -103,17 +105,19 @@ const SettingsThemeScreen = () => {
               color={themeOption.color} 
             />
 
-            <HeaderText style={{ color: themeOption.color }}>
+            <BodyText style={{ color: themeOption.color }}>
               {themeOption.name}
-            </HeaderText>
+            </BodyText>
           </View>
 
           {/* Right side: Checkmark - only shows if this theme is selected */}
           {theme.id === themeOption.id && (
             <Ionicons name="checkmark-circle" size={28} color="#007AFF" />
           )}
-        </TouchableOpacity>
+        </SelectButton>
       ))}
+
+      </SelectButtonContainer>
     </View>
   );
 }
@@ -122,15 +126,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-  },
-  themeOption: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: 18,
-    marginBottom: 12,
-    borderRadius: 12,
-    borderWidth: 2,    
   },
   selected: {
     borderColor: '#007AFF',

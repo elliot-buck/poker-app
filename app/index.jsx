@@ -1,7 +1,7 @@
 import LogoImage from '@/assets/images/poker-chips-logo.png';
 import { useRouter } from 'expo-router';
-import { Image, StyleSheet, TouchableOpacity, View } from "react-native";
-import { HeaderText } from '../components';
+import { Image, StyleSheet, View } from "react-native";
+import { CentredButton, HeaderText } from '../components';
 import { useTheme } from '../contexts/ThemeContext';
 
 const HomeScreen = () => {
@@ -12,21 +12,21 @@ const HomeScreen = () => {
     <View style={[styles.container, {backgroundColor: theme.backgroundColor}]}>
       <Image source={LogoImage} style={styles.image} />
       <View style={styles.buttonContainer}>
-        <TouchableOpacity style={[styles.button, {backgroundColor: theme.headerColor, borderColor: theme.color}]} // Defining the button element
-          onPress={() => router.push('/gameplay')} // Navigate to the gameplay section
+        <CentredButton // Defining the button element
+          onPress={() => router.push('/setup-menu')} // Navigate to the game setup menu
         >
           <HeaderText>Play Poker</HeaderText>
-        </TouchableOpacity>
-        <TouchableOpacity style={[styles.button, {backgroundColor: theme.headerColor, borderColor: theme.color}]}
+        </CentredButton>
+        <CentredButton
           onPress={() => router.push('/game-review')} // Navigate to the game review section
         >
           <HeaderText>Game Review</HeaderText>
-        </TouchableOpacity>
-        <TouchableOpacity style={[styles.button, {backgroundColor: theme.headerColor, borderColor: theme.color}]}
+        </CentredButton>
+        <CentredButton
           onPress={() => router.push('/training')} // Navigate to the training section
         >
           <HeaderText>Training</HeaderText>
-        </TouchableOpacity>
+        </CentredButton>
       </View>
     </View>
   );

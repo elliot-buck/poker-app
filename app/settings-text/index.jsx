@@ -1,6 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
-import { HeaderText, TitleText } from '../../components';
+import { StyleSheet, View } from 'react-native';
+import { BodyText, SelectButton, SelectButtonContainer, TitleText } from '../../components';
 import { useTheme } from '../../contexts/ThemeContext';
 
 const SettingsTextScreen = () => {
@@ -63,21 +63,22 @@ const SettingsTextScreen = () => {
     <View style={[styles.container, { backgroundColor: theme.backgroundColor, fontFamily: theme.font }]}>
     
     {/* Title text - uses current theme's font */}
-      <View style={{marginBottom: 20}}>
+      <View style={{marginBottom: 12}}>
         <TitleText>Select Font</TitleText>
       </View>
 
+      <SelectButtonContainer>
+
       {/* Loop through all fonts and create a button for each one */}
       {fonts.map((font) => (
-        <TouchableOpacity
+        <SelectButton
           key={font.font}
           
-          // Apply styles - basic style along with fontOption font family, plus selected style if this is the selected font
+          // Apply styles - basic style plus selected style if this is the selected font
           style={[
-            styles.fontOption,
             theme.font === font.font && styles.selected,
-            { borderColor: theme.font === font.font ? '#007AFF' : theme.color, 
-              backgroundColor: theme.headerColor
+            { borderColor: theme.font === font.font ? '#007AFF': 'transparent', 
+              backgroundColor: theme.headerColor,
             }
           ]}
           
@@ -86,34 +87,37 @@ const SettingsTextScreen = () => {
         >
           {/* Format each font's name with it's own font */}
           <View style={styles.leftContent}>
-            <HeaderText style={{ fontFamily: font.font }}>
+            <BodyText style={{ fontFamily: font.font}}>
               {font.name}
-            </HeaderText>
+            </BodyText>
           </View>
 
           {/* Right side: Checkmark - only shows if this theme is selected */}
           {theme.font === font.font && (
             <Ionicons name="checkmark-circle" size={28} color="#007AFF" />
           )}
-        </TouchableOpacity>
+        </SelectButton>
       ))}
 
+      </SelectButtonContainer>
+
       {/* Title text - uses current theme's font size */}
-      <View style={{marginBottom: 20}}>
+      <View style={{marginBottom: 12}}>
         <TitleText>Select Font Size</TitleText>
       </View>
 
+      <SelectButtonContainer>
+
       {/* Loop through all fonts sizes and create a button for each one */}
       {fontSizes.map((fontSize) => (
-        <TouchableOpacity
+        <SelectButton
           key={fontSize.size}
           
-          // Apply styles - basic style along with fontOption font family, plus selected style if this is the selected font
+          // Apply styles - basic style plus selected style if this is the selected font
           style={[
-            styles.fontOption,
             theme.fontSize === fontSize.size && styles.selected,
-            { borderColor: theme.fontSize === fontSize.size ? '#007AFF' : theme.color, 
-              backgroundColor: theme.headerColor
+            { borderColor: theme.fontSize === fontSize.size ? '#007AFF': 'transparent', 
+              backgroundColor: theme.headerColor,
             }
           ]}
           
@@ -122,17 +126,19 @@ const SettingsTextScreen = () => {
         >
           {/* Format each font's name with it's own font */}
           <View style={styles.leftContent}>
-            <HeaderText style={{ fontSize: fontSize.size }}>
+            <BodyText style={{ fontSize: fontSize.size * 16 }}>
               {fontSize.name}
-            </HeaderText>
+            </BodyText>
           </View>
 
           {/* Right side: Checkmark - only shows if this theme is selected */}
           {theme.fontSize === fontSize.size && (
             <Ionicons name="checkmark-circle" size={28} color="#007AFF" />
           )}
-        </TouchableOpacity>
+        </SelectButton>
       ))}
+
+      </SelectButtonContainer>
     </View>
   );
 };
@@ -146,16 +152,6 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 20,
-  },
-  fontOption: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: 18,
-    marginBottom: 12,
-    borderRadius: 12,
-    borderWidth: 2,
-    minHeight: 72,
   },
   selected: {
     borderColor: '#007AFF',
