@@ -2,7 +2,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import { StyleSheet, View } from "react-native";
-import { CentredButton, HeaderText, MultiSelect, SpaceBetweenContainer, ToggleButton } from '../../components';
+import { CentredButton, HeaderText, MultiSelect, SpaceBetweenContainer, TextInputField, ToggleButton } from '../../components';
 import { useTheme } from '../../contexts/ThemeContext';
 
 const SetupMenuScreen = () => {
@@ -11,6 +11,9 @@ const SetupMenuScreen = () => {
   const [difficulty, setDifficulty] = useState('Beginner');
   const [turnLength, setTurnLength] = useState(30);
   const [equityDisplay, setEquityDisplay] = useState(false);
+  const [helpDisplay, setHelpDisplay] = useState(false);
+  const [startingChips, setStartingChips] = useState(1000);
+  const [bigBlind, setBigBlind] = useState(50);
 
   return ( 
     <View style={[styles.container, { backgroundColor: theme.backgroundColor }]}>
@@ -60,8 +63,46 @@ const SetupMenuScreen = () => {
             ></ToggleButton>
           </SpaceBetweenContainer>
 
+          <SpaceBetweenContainer>
+            <View style={styles.leftContent}>
+              <Ionicons name="help-circle-outline" size={28} color={theme.color} />
+              <HeaderText>Show Help Display</HeaderText>
+            </View>
+
+            <ToggleButton
+              toggledOnOption={true}
+              toggledOffOption={false}
+              selectedOption={helpDisplay}
+              onSelect={setHelpDisplay}
+            ></ToggleButton>
+          </SpaceBetweenContainer>
+
+          <SpaceBetweenContainer>
+            <View style={styles.leftContent}>
+              <Ionicons name="cash-outline" size={28} color={theme.color} />
+              <HeaderText>Set Starting Chips</HeaderText>
+            </View>
+
+            <TextInputField
+              text={startingChips}
+              onChange={setStartingChips}
+            ></TextInputField>
+          </SpaceBetweenContainer>
+
+          <SpaceBetweenContainer>
+            <View style={styles.leftContent}>
+              <Ionicons name="server-outline" size={28} color={theme.color} />
+              <HeaderText>Set Big Blind</HeaderText>
+            </View>
+
+            <TextInputField
+              text={bigBlind}
+              onChange={setBigBlind}
+            ></TextInputField>
+          </SpaceBetweenContainer>
+
           <CentredButton
-            onPress={() => console.log(difficulty, turnLength, equityDisplay)}
+            onPress={() => console.log(difficulty, turnLength, equityDisplay, helpDisplay, startingChips, bigBlind)}
           >
             <HeaderText>Log info</HeaderText>
           </CentredButton>

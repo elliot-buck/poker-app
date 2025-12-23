@@ -34,6 +34,7 @@ const RootLayout = () => {
           <Stack.Screen name='settings' options={{headerTitle: 'Settings'}} /> {/* Set the settings title to 'Settings'*/} 
           <Stack.Screen name='settings-text' options={{headerTitle: 'Change Text'}} /> {/* Set the settings-text title to 'Change Text'*/} 
           <Stack.Screen name='settings-theme' options={{headerTitle: 'Change Theme'}} /> {/* Set the settings-theme title to 'Change Theme'*/}
+          <Stack.Screen name='setup-menu' options={{headerTitle: 'Setup Menu'}} /> {/* Set the setup-menu title to 'Setup Menu'*/}
         </Stack>
       )}
     </ThemeProvider>

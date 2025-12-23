@@ -90,3 +90,9 @@
 
 ### 2.1.2 - Setup menu buttons
 - Added difficulty button
+- Added turn length button
+- Created ToggleButton **ALGORITHM**
+- Added column support for MultiSelect
+- Created TextInputField
+- Added remaining fields
+- Tested logging info
