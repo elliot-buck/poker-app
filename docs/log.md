@@ -87,3 +87,6 @@
 - Fixed import error
 - Rerouted 'Play Poker' button to the setup menu
 - Added 'CentredButton' and 'SpaceBetweenButton'
+
+### 2.1.2 - Setup menu buttons
+- Added difficulty button
