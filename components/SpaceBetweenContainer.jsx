@@ -2,13 +2,21 @@ import { StyleSheet, View } from 'react-native';
 import { useTheme } from '../contexts/ThemeContext';
 
 // Custom component which applies font and fontSize from the current theme
-const BodyText = ({ style, children, ...props }) => {
+const SpaceBetweenContainer = ({ style, children, ...props }) => {
   const { theme } = useTheme();
 
-  // Return a Text component with additional styles attatched
+  // Return a View component with additional styles attached
   return (
     <View 
-      style={[styles.button, { backgroundColor: theme.headerColor, borderColor: theme.color, height: 72*theme.fontSize }, style]}
+      style={[
+        styles.container, 
+        { 
+          backgroundColor: theme.headerColor, 
+          borderColor: theme.color,
+          minHeight: 72 * theme.fontSize  // Changed from height to minHeight
+        }, 
+        style
+      ]}
       {...props}
     >
       {children}
@@ -17,15 +25,15 @@ const BodyText = ({ style, children, ...props }) => {
 };
 
 const styles = StyleSheet.create({
-  button: {
+  container: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: 18,
+    padding: 12,
     marginBottom: 12,
     borderRadius: 12,
     borderWidth: 2, 
   },
 })
 
-export default BodyText;
+export default SpaceBetweenContainer;
