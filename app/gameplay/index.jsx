@@ -1,5 +1,5 @@
 import { StyleSheet, View } from "react-native";
-import { PokerTable } from '../../components';
+import { CardDisplay, EquityDisplay, PokerTable } from '../../components';
 import { useTheme } from '../../contexts/ThemeContext';
 
 const GameplayScreen = () => {
@@ -8,10 +8,12 @@ const GameplayScreen = () => {
   return ( 
   <View style={[styles.container, {backgroundColor: theme.backgroundColor}]}>
     <PokerTable
-      width={360}
-      height={240}
+      width={60}
+      height={20}
       numberOfSeats={10}
     ></PokerTable>
+    <EquityDisplay equity={1.0}></EquityDisplay>
+    <CardDisplay hand={['AS', null]}></CardDisplay>
   </View> );
 }
 
@@ -19,7 +21,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    padding: 20,
+    padding: 0,
+    gap: 8,
   },
 });
 

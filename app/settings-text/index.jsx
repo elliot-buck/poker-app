@@ -1,6 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
 import { StyleSheet, View } from 'react-native';
-import { BodyText, SelectButton, SelectButtonContainer, TitleText } from '../../components';
+import { BodyText, SelectButton, TitleText } from '../../components';
 import { useTheme } from '../../contexts/ThemeContext';
 
 const SettingsTextScreen = () => {
@@ -67,7 +67,7 @@ const SettingsTextScreen = () => {
         <TitleText>Select Font</TitleText>
       </View>
 
-      <SelectButtonContainer>
+      <View>
 
       {/* Loop through all fonts and create a button for each one */}
       {fonts.map((font) => (
@@ -99,14 +99,14 @@ const SettingsTextScreen = () => {
         </SelectButton>
       ))}
 
-      </SelectButtonContainer>
+      </View>
 
       {/* Title text - uses current theme's font size */}
       <View style={{marginBottom: 12}}>
         <TitleText>Select Font Size</TitleText>
       </View>
 
-      <SelectButtonContainer>
+      <View>
 
       {/* Loop through all fonts sizes and create a button for each one */}
       {fontSizes.map((fontSize) => (
@@ -138,7 +138,7 @@ const SettingsTextScreen = () => {
         </SelectButton>
       ))}
 
-      </SelectButtonContainer>
+      </View>
     </View>
   );
 };

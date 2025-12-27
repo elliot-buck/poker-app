@@ -1,5 +1,5 @@
 import { Text } from 'react-native';
-import { useTheme } from '../contexts/ThemeContext';
+import { useTheme } from '../../contexts/ThemeContext';
 
 // Custom component which applies font and fontSize from the current theme
 const BodyText = ({ style, children, ...props }) => {

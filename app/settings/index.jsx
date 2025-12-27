@@ -1,7 +1,7 @@
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { StyleSheet, View } from "react-native";
-import { BodyText, SelectButton, SelectButtonContainer, TitleText } from '../../components';
+import { BodyText, SelectButton, TitleText } from '../../components';
 import { useTheme } from '../../contexts/ThemeContext';
 
 const SettingsScreen = () => {
@@ -16,7 +16,7 @@ const SettingsScreen = () => {
       </View>
 
       {/* Container for settings buttons */}
-      <SelectButtonContainer>
+      <View>
         <SelectButton 
           onPress={() => router.push('/settings-theme')}
         >
@@ -38,7 +38,7 @@ const SettingsScreen = () => {
 
           <Ionicons name="chevron-forward-outline" size={20} color={theme.color} />
         </SelectButton>
-      </SelectButtonContainer>
+      </View>
     </View>
   );
 }

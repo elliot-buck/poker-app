@@ -1,5 +1,5 @@
 import { Pressable, StyleSheet } from 'react-native';
-import { useTheme } from '../contexts/ThemeContext';
+import { useTheme } from '../../contexts/ThemeContext';
 
 // Custom component which applies button styling and centres text
 const BodyText = ({ style, children, ...props }) => {

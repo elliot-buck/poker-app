@@ -98,8 +98,11 @@
 - Tested logging info
 - Completed set up menu
 
-### 2.1.3 - Gameplay UI
+### 2.1.3 - Gameplay section layout
 - Create table component
 - Seat position **ALGORITHM**
 - Create seat component
 - Don't render first seat
+
+### 2.1.4 - Gameplay UI
+- Created EmptySeat component

@@ -1,24 +1,25 @@
 import { StyleSheet, View } from 'react-native';
-import { useTheme } from '../contexts/ThemeContext';
+import { useTheme } from '../../contexts/ThemeContext';
+import EmptySeat from './EmptySeat';
 
 /**
- * PokerTable Component
+ * Seat Component
  * 
  * @param width - Seat UI width
  * @param height - Seat UI height
  * @param coordinates - (x, y) coordinates relative to the table
  * @param position - Seat position around the table
+ * @param player - Which player is sitting at this seat
  */
 
-// Custom component which displays the poker table and places seats around the table
+// Custom component which displays a seat around the table
 const Seat = ({
   width,
   height,
   coordinates,
   position,
+  player=null,
 }) => {
-
-  console.log(width, height, coordinates)
 
   // Retrieve the theme object from context
   const { theme } = useTheme();
@@ -28,13 +29,17 @@ const Seat = ({
       style={[
         styles.seat,
         {
-          borderColor: theme.color,
           width: width,
           height: height,
         },
         coordinates
       ]}
     >
+      { player ? (
+        <View></View>
+      ) : (
+        <EmptySeat position={position} ></EmptySeat>
+      )}
     </View>
   );
 };
@@ -42,10 +47,6 @@ const Seat = ({
 const styles = StyleSheet.create({
   seat: {
     position: 'absolute',
-    borderWidth: 1,
-    borderStyle: 'dashed',
-    borderRadius: 8,
-    opacity: 0.5
   },
 })
 

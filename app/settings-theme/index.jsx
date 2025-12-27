@@ -1,6 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
 import { StyleSheet, View } from 'react-native';
-import { BodyText, SelectButton, SelectButtonContainer, TitleText } from '../../components';
+import { BodyText, SelectButton, TitleText } from '../../components';
 import { useTheme } from '../../contexts/ThemeContext';
 
 const SettingsThemeScreen = () => {
@@ -80,7 +80,7 @@ const SettingsThemeScreen = () => {
         <TitleText>Select Theme</TitleText>
       </View>
 
-      <SelectButtonContainer>
+      <View>
 
       {/* Loop through all themes and create a button for each one */}
       {themes.map((themeOption) => (
@@ -117,7 +117,7 @@ const SettingsThemeScreen = () => {
         </SelectButton>
       ))}
 
-      </SelectButtonContainer>
+      </View>
     </View>
   );
 }

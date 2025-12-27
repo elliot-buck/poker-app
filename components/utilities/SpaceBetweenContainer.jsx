@@ -1,5 +1,5 @@
 import { StyleSheet, View } from 'react-native';
-import { useTheme } from '../contexts/ThemeContext';
+import { useTheme } from '../../contexts/ThemeContext';
 
 // Custom component which applies font and fontSize from the current theme
 const SpaceBetweenContainer = ({ style, children, ...props }) => {
@@ -34,6 +34,6 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     borderWidth: 2, 
   },
-})
+});
 
 export default SpaceBetweenContainer;

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { StyleSheet, TextInput } from 'react-native';
-import { useTheme } from '../contexts/ThemeContext';
+import { useTheme } from '../../contexts/ThemeContext';
 
 /**
  * TextInputField Component
