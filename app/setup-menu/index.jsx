@@ -102,9 +102,9 @@ const SetupMenuScreen = () => {
           </SpaceBetweenContainer>
 
           <CentredButton
-            onPress={() => console.log(difficulty, turnLength, equityDisplay, helpDisplay, startingChips, bigBlind)}
+            onPress={() => router.push('/gameplay')}
           >
-            <HeaderText>Log info</HeaderText>
+            <HeaderText>Start Game</HeaderText>
           </CentredButton>
         </View>
       </View>
