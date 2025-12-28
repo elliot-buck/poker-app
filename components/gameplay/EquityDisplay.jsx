@@ -37,6 +37,8 @@ const styles = StyleSheet.create({
     height: 40,
     borderRadius: 20,
     padding: 2,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 
   equityText: {

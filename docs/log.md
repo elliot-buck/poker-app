@@ -106,3 +106,6 @@
 
 ### 2.1.4 - Gameplay UI
 - Created EmptySeat component
+- Created hand display
+- Created equity display
+- Created sidebar component

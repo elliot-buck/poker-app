@@ -14,7 +14,7 @@ const RootLayout = () => {
             headerStyle: { backgroundColor: theme.headerColor },
             headerTintColor: theme.color,
             headerTitleStyle: { fontFamily: theme.font, fontWeight: 'bold', fontSize: theme.fontSize * 20 },
-            contentStyle: { backgroundColor: theme.backgroundColor, paddingTop: 10, paddingHorizontal: 10 },
+            contentStyle: { backgroundColor: theme.backgroundColor },
           }}
         >
           <Stack.Screen
