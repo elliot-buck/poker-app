@@ -12,6 +12,7 @@ const HeaderText = ({style, children, ...props}) => {
       <Text 
         style={[
           {fontSize: 18 * theme.fontSize, fontWeight: '500'}, 
+          style
         ]} 
         {...props}
       >

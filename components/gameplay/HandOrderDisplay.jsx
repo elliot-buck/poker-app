@@ -1,6 +1,6 @@
 import { Image, StyleSheet, Text, View } from 'react-native';
 import { useTheme } from '../../contexts/ThemeContext';
-import { getCardImage } from '../../utils/cardImages';
+import { getCardImage } from '../../utils';
 
 const Sidebar = () => {
   const { theme } = useTheme();
@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
     width: 50,
     height: 70,
     borderRadius: 4,
-  }
+  },
 });
 
 export default Sidebar;

@@ -1,4 +1,5 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import { HeaderText } from '../.';
 import { useTheme } from '../../contexts/ThemeContext';
 
 /**
@@ -21,30 +22,32 @@ const CardDisplay = ({
           styles.equityDisplay,
           {
             backgroundColor: theme.headerColor,
+            borderColor: theme.color,
+            width: theme.fontSize * 120,
+            height: theme.fontSize * 30,
+            borderRadius: theme.fontSize * 8,
           }
         ]}
       >
-        <Text style={[styles.equityText, { color: theme.color }]}>
+        <HeaderText 
+          style={{
+            textAlign: 'center',
+            textAlignVertical: 'center',
+            lineHeight: theme.fontSize * 30,
+        }}>
           {Math.round(equity * 100)}%
-        </Text>
+        </HeaderText>
       </View>
     );
 };
 
 const styles = StyleSheet.create({
   equityDisplay: {
-    width: 120,
-    height: 40,
-    borderRadius: 20,
     padding: 2,
     justifyContent: 'center',
     alignItems: 'center',
+    borderWidth: 2,
   },
-
-  equityText: {
-    textAlign: 'center',
-    fontSize: 24,
-  }
 });
 
 export default CardDisplay;

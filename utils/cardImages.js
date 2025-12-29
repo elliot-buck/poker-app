@@ -63,7 +63,71 @@ export const getCardImage = (cardString) => {
   return CARD_IMAGES[cardString];
 };
 
+export const SMALL_CARD_IMAGES = {
+  // Clubs
+  '2C': require('../assets/images/small_cards/2C.svg'),
+  '3C': require('../assets/images/small_cards/3C.svg'),
+  '4C': require('../assets/images/small_cards/4C.svg'),
+  '5C': require('../assets/images/small_cards/5C.svg'),
+  '6C': require('../assets/images/small_cards/6C.svg'),
+  '7C': require('../assets/images/small_cards/7C.svg'),
+  '8C': require('../assets/images/small_cards/8C.svg'),
+  '9C': require('../assets/images/small_cards/9C.svg'),
+  'TC': require('../assets/images/small_cards/TC.svg'),
+  'JC': require('../assets/images/small_cards/JC.svg'),
+  'QC': require('../assets/images/small_cards/QC.svg'),
+  'KC': require('../assets/images/small_cards/KC.svg'),
+  'AC': require('../assets/images/small_cards/AC.svg'),
+  // Diamonds
+  '2D': require('../assets/images/small_cards/2D.svg'),
+  '3D': require('../assets/images/small_cards/3D.svg'),
+  '4D': require('../assets/images/small_cards/4D.svg'),
+  '5D': require('../assets/images/small_cards/5D.svg'),
+  '6D': require('../assets/images/small_cards/6D.svg'),
+  '7D': require('../assets/images/small_cards/7D.svg'),
+  '8D': require('../assets/images/small_cards/8D.svg'),
+  '9D': require('../assets/images/small_cards/9D.svg'),
+  'TD': require('../assets/images/small_cards/TD.svg'),
+  'JD': require('../assets/images/small_cards/JD.svg'),
+  'QD': require('../assets/images/small_cards/QD.svg'),
+  'KD': require('../assets/images/small_cards/KD.svg'),
+  'AD': require('../assets/images/small_cards/AD.svg'),
+  // Hearts
+  '2H': require('../assets/images/small_cards/2H.svg'),
+  '3H': require('../assets/images/small_cards/3H.svg'),
+  '4H': require('../assets/images/small_cards/4H.svg'),
+  '5H': require('../assets/images/small_cards/5H.svg'),
+  '6H': require('../assets/images/small_cards/6H.svg'),
+  '7H': require('../assets/images/small_cards/7H.svg'),
+  '8H': require('../assets/images/small_cards/8H.svg'),
+  '9H': require('../assets/images/small_cards/9H.svg'),
+  'TH': require('../assets/images/small_cards/TH.svg'),
+  'JH': require('../assets/images/small_cards/JH.svg'),
+  'QH': require('../assets/images/small_cards/QH.svg'),
+  'KH': require('../assets/images/small_cards/KH.svg'),
+  'AH': require('../assets/images/small_cards/AH.svg'),
+  // Spades
+  '2S': require('../assets/images/small_cards/2S.svg'),
+  '3S': require('../assets/images/small_cards/3S.svg'),
+  '4S': require('../assets/images/small_cards/4S.svg'),
+  '5S': require('../assets/images/small_cards/5S.svg'),
+  '6S': require('../assets/images/small_cards/6S.svg'),
+  '7S': require('../assets/images/small_cards/7S.svg'),
+  '8S': require('../assets/images/small_cards/8S.svg'),
+  '9S': require('../assets/images/small_cards/9S.svg'),
+  'TS': require('../assets/images/small_cards/TS.svg'),
+  'JS': require('../assets/images/small_cards/JS.svg'),
+  'QS': require('../assets/images/small_cards/QS.svg'),
+  'KS': require('../assets/images/small_cards/KS.svg'),
+  'AS': require('../assets/images/small_cards/AS.svg'),
+};
+
+// Helper function to get a smallcard image
+export const getSmallCardImage = (cardString) => {
+  return SMALL_CARD_IMAGES[cardString];
+};
+
 // Helper function to check if a card exists
 export const isValidCard = (cardString) => {
-  return cardString in CARD_IMAGES;
+  return cardString in CARD_IMAGES || cardString in SMALL_CARD_IMAGES;
 };

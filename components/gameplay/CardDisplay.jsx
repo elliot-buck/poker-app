@@ -1,6 +1,6 @@
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { Dimensions, Image, StyleSheet, Text, View } from 'react-native';
 import { useTheme } from '../../contexts/ThemeContext';
-import { CARD_IMAGES, getCardImage } from '../../utils/cardImages';
+import { CARD_IMAGES, getCardImage } from '../../utils';
 
 console.log('Card image:', CARD_IMAGES['AS']);
 
@@ -16,6 +16,13 @@ const CardDisplay = ({
   }) => {
     const { theme } = useTheme();
 
+    const SCREEN_WIDTH = Dimensions.get('window').width;
+
+    console.log(SCREEN_WIDTH)
+
+    const CARD_WIDTH = SCREEN_WIDTH * 0.3;
+    const CARD_HEIGHT = CARD_WIDTH * 7/5;
+
     if (hand.length !== 2) {
       hand = [null, null]
     }
@@ -26,12 +33,18 @@ const CardDisplay = ({
         style={[styles.container]}
       >
         {hand.map((card, index) => (
-          <View key={index} style={styles.cardWrapper}>
+          <View key={index}>
             {card ? (
               // Display the card image
               <Image
                 source={getCardImage(card)}
-                style={styles.card}
+                style={[
+                  styles.card,
+                  {
+                    width: CARD_WIDTH,
+                    height: CARD_HEIGHT,
+                  }
+                ]}
                 resizeMode="contain"
               />
             ) : (
@@ -39,7 +52,11 @@ const CardDisplay = ({
               <View
                 style={[
                   styles.cardPlaceholder,
-                  { borderColor: theme.color }
+                  { 
+                    borderColor: theme.color,
+                    width: CARD_WIDTH,
+                    height: CARD_HEIGHT,
+                  }
                 ]}
               >
                 <Text style={[ styles.cardPlaceholderText, { color: theme.color, fontSize: 11 * theme.fontSize } ]}>
@@ -58,18 +75,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     gap: 8,
   },
-  cardWrapper: {
-    
-  },
   card: {
-    width: 100,
-    height: 140,
     borderRadius: 8,
   },
   cardPlaceholder: {
     justifyContent: 'center',
-    width: 100,
-    height: 140,
     borderRadius: 8,
     borderWidth: 1,
     opacity: 0.5,

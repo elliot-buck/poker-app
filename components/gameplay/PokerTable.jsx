@@ -12,6 +12,7 @@ import Seat from './Seat';
 
 // Custom component which displays the poker table and places seats around the table
 const PokerTable = ({
+  children,
   width,
   height,
   numberOfSeats,
@@ -23,7 +24,7 @@ const PokerTable = ({
   const WIDTH = width/100 * Dimensions.get('window').width;
   const HEIGHT = height/100 * Dimensions.get('window').height;
 
-  const SEAT_WIDTH = 110;
+  const SEAT_WIDTH = 105;
   const SEAT_HEIGHT = 65;
 
   // Function to place n seats around the table
@@ -43,7 +44,7 @@ const PokerTable = ({
     // const absoluteX = width*0.63 - SEAT_WIDTH/2 + x;
     // const absoluteY = height*0.6 - SEAT_HEIGHT/2 + y;
     const absoluteX = x - SEAT_WIDTH/2;
-    const absoluteY = y + HEIGHT/2 - SEAT_HEIGHT/2;
+    const absoluteY = y + HEIGHT/2 - SEAT_HEIGHT/2 + 20;
 
     return { left: absoluteX, top: absoluteY };
   };
@@ -53,7 +54,7 @@ const PokerTable = ({
       style={[
       styles.container,
       {
-        height: HEIGHT + SEAT_HEIGHT*2 - 60,
+        height: (HEIGHT + SEAT_HEIGHT*2),
         width: '100%',
       }
     ]}>
@@ -64,10 +65,18 @@ const PokerTable = ({
           width: HEIGHT,
           height: HEIGHT,
           borderRadius: HEIGHT/2,
-          transform:[{ scaleX: WIDTH/HEIGHT}],
-          top: SEAT_HEIGHT,
+          transform:[{ scaleX: WIDTH/HEIGHT }],
+          top: SEAT_HEIGHT + 20,
         }
       ]}>
+        <View style={[
+          styles.tableContent,
+          {
+            transform:[{ scaleX: HEIGHT/WIDTH }, { translateY: HEIGHT/5 }],
+          }
+        ]}>
+          {children}
+        </View>
       </View>
       <View style={[ styles.seatContainer, {top: SEAT_HEIGHT} ]}>
         {[...Array(numberOfSeats-1).keys()].map((seatNumber) => (
@@ -93,6 +102,9 @@ const styles = StyleSheet.create({
   table: {
     position: 'absolute',
     boxShadow: '0px 8px 2px rgba(0, 0, 0, 0.3)',
+  },
+  tableContent: {
+
   },
   seatContainer: {
     position: 'absolute',
