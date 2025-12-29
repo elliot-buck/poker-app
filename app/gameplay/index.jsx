@@ -16,6 +16,7 @@ const GameplayScreen = () => {
         width={55}
         height={25}
         numberOfSeats={10}
+        players={gameState.players}
       >
         <TableContent
           stageNumber={gameState.stage}

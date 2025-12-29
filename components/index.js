@@ -6,6 +6,7 @@ export { default as ChipDisplay } from './gameplay/ChipDisplay';
 export { default as EmptySeat } from './gameplay/EmptySeat';
 export { default as EquityDisplay } from './gameplay/EquityDisplay';
 export { default as HandOrderDisplay } from './gameplay/HandOrderDisplay';
+export { default as Opponent } from './gameplay/Opponent';
 export { default as PokerTable } from './gameplay/PokerTable';
 export { default as Seat } from './gameplay/Seat';
 export { default as TableContent } from './gameplay/TableContent';

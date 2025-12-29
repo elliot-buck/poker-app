@@ -149,3 +149,4 @@
 ### 2.3.4 - Linking logic to UI
 - Set contents of TableContent and CardDisplay to reflect table and user cards
 - Test functionality (success)
+- Create opponent component

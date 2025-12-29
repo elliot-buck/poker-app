@@ -1,6 +1,5 @@
 import { StyleSheet, View } from 'react-native';
-import { useTheme } from '../../contexts/ThemeContext';
-import EmptySeat from './EmptySeat';
+import { EmptySeat, Opponent } from '..';
 
 /**
  * Seat Component
@@ -21,9 +20,6 @@ const Seat = ({
   player=null,
 }) => {
 
-  // Retrieve the theme object from context
-  const { theme } = useTheme();
-
   return (
     <View
       style={[
@@ -36,7 +32,7 @@ const Seat = ({
       ]}
     >
       { player ? (
-        <View></View>
+        <Opponent player={player} seatHeight={height} ></Opponent>
       ) : (
         <EmptySeat position={position} ></EmptySeat>
       )}

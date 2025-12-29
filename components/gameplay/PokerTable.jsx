@@ -1,6 +1,6 @@
 import { Dimensions, StyleSheet, View } from 'react-native';
+import { Seat } from '..';
 import { useTheme } from '../../contexts/ThemeContext';
-import Seat from './Seat';
 
 /**
  * PokerTable Component
@@ -8,6 +8,7 @@ import Seat from './Seat';
  * @param width - Table width from centre to edge as a percentage of screen width
  * @param height - Table height from centre to edge as a percentage of screen height
  * @param numberOfSeats - Number of seats around the table
+ * @param players - Players seated around the table
  */
 
 // Custom component which displays the poker table and places seats around the table
@@ -16,6 +17,7 @@ const PokerTable = ({
   width,
   height,
   numberOfSeats,
+  players,
 }) => {
 
   // Retrieve the theme object from context
@@ -25,7 +27,7 @@ const PokerTable = ({
   const HEIGHT = height/100 * Dimensions.get('window').height;
 
   const SEAT_WIDTH = 105;
-  const SEAT_HEIGHT = 65;
+  const SEAT_HEIGHT = 50;
 
   // Function to place n seats around the table
   const getSeatPosition = (seatNumber) => {
@@ -85,6 +87,7 @@ const PokerTable = ({
             height={SEAT_HEIGHT}
             coordinates={getSeatPosition(seatNumber+1)}
             position={seatNumber+2}
+            player={players[seatNumber+1]}
           >
           </Seat>
         ))}

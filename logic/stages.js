@@ -23,6 +23,7 @@ export function startGame(difficulty, turnLength, equityDisplay, helpDisplay, st
 
   joinPlayer(1, 'bot1', startingChips);
   joinPlayer(2, 'bot2', startingChips);
+  joinPlayer(9, 'bot3', startingChips);
 
   // Temporary
   preFlop();

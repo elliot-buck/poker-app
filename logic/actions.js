@@ -115,10 +115,9 @@ export function dealPlayerCards() {
 
   // Iterate over each seated position, starting left of the dealer
   for (let i = 0; i < positions.length; i++) {
-    const position = (startIndex + i+1) % positions.length;
+    const position = positions[(startIndex + i+1) % positions.length];
     const player = players[position]
 
-    console.log(player)
     table.dealToPlayer(player);
   }
 }
