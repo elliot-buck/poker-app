@@ -40,8 +40,6 @@ const Sidebar = () => {
     'High Card'
   ];
 
-  console.log(HAND_ORDER)
-
   return (
     <View style={[styles.container, {backgroundColor: theme.backgroundColor}]}>
       {HAND_ORDER.map((handName, index) => (

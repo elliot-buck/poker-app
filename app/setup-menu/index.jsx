@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { StyleSheet, View } from "react-native";
 import { CentredButton, HeaderText, MultiSelect, SpaceBetweenContainer, TextInputField, ToggleButton } from '../../components';
 import { useTheme } from '../../contexts/ThemeContext';
+import { startGame } from '../../logic';
 
 const SetupMenuScreen = () => {
   const router = useRouter();
@@ -102,7 +103,10 @@ const SetupMenuScreen = () => {
           </SpaceBetweenContainer>
 
           <CentredButton
-            onPress={() => router.push('/gameplay')}
+            onPress={() => {
+              startGame(difficulty, turnLength, equityDisplay, helpDisplay, startingChips, bigBlind);
+              router.push('/gameplay');
+            }}
           >
             <HeaderText>Start Game</HeaderText>
           </CentredButton>

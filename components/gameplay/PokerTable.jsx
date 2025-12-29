@@ -84,7 +84,7 @@ const PokerTable = ({
             width={SEAT_WIDTH}
             height={SEAT_HEIGHT}
             coordinates={getSeatPosition(seatNumber+1)}
-            position={seatNumber+1}
+            position={seatNumber+2}
           >
           </Seat>
         ))}

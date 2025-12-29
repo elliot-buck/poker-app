@@ -1,8 +1,6 @@
 import { Dimensions, Image, StyleSheet, Text, View } from 'react-native';
 import { useTheme } from '../../contexts/ThemeContext';
-import { CARD_IMAGES, getCardImage } from '../../utils';
-
-console.log('Card image:', CARD_IMAGES['AS']);
+import { getCardImage } from '../../utils';
 
 /**
  * CardDisplay Component
@@ -17,8 +15,6 @@ const CardDisplay = ({
     const { theme } = useTheme();
 
     const SCREEN_WIDTH = Dimensions.get('window').width;
-
-    console.log(SCREEN_WIDTH)
 
     const CARD_WIDTH = SCREEN_WIDTH * 0.3;
     const CARD_HEIGHT = CARD_WIDTH * 7/5;

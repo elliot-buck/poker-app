@@ -1,13 +1,13 @@
-import { Dimensions, Image, StyleSheet, View } from 'react-native';
-import { HeaderText } from '../../components';
+import { Image, StyleSheet, View } from 'react-native';
+import { BodyText } from '../../components';
 import { useTheme } from '../../contexts/ThemeContext';
-import { formatNumber, getSmallCardImage } from '../../utils';
+import { formatNumber, getSmallCardImage, STAGE_NAMES } from '../../utils';
 
 
 /**
  * TableContent Component
  *
- * @param stage - Current betting stage
+ * @param stageNumber - Current betting stage number
  * @param communityCards - Current community cards (array of card strings)
  * @param potSize - Current pot size 
  * 
@@ -15,18 +15,21 @@ import { formatNumber, getSmallCardImage } from '../../utils';
 
 // Custom component which displays a hand of 2 cards
 const TableContent = ({
-    stage,
+    stageNumber,
     communityCards,
     potSize,
   }) => {
     const { theme } = useTheme();
 
-    const SCREEN_WIDTH = Dimensions.get('window').width;
-
     const normalisedCards = [...communityCards, ...Array(5 - communityCards.length).fill(null)];
+    const stageName = STAGE_NAMES[stageNumber]
+
+    console.log('Stage names', stageNumber, STAGE_NAMES, stageName)
 
     const CARD_WIDTH = 40;
     const CARD_HEIGHT = 56;
+
+    console.log(communityCards, normalisedCards);
 
     // Return Card Display
     return (  
@@ -40,14 +43,14 @@ const TableContent = ({
             borderColor: theme.color,
           }
         ]}>
-          <HeaderText 
+          <BodyText 
             style={{
               textAlign: 'center',
               textAlignVertical: 'center',
               lineHeight: theme.fontSize * 30,
           }}>
-            {stage}
-          </HeaderText>
+            {stageName}
+          </BodyText>
         </View>
 
         <View
@@ -98,14 +101,14 @@ const TableContent = ({
             borderColor: theme.color,
           }
         ]}>
-          <HeaderText 
+          <BodyText 
             style={{
               textAlign: 'center',
               textAlignVertical: 'center',
               lineHeight: theme.fontSize * 30,
           }}>
             {formatNumber(potSize)}
-          </HeaderText>
+          </BodyText>
         </View>
       </View>
     );

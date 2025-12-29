@@ -121,6 +121,31 @@
 
 ## 2.3 - Gameplay logic
 
-### 2.3 - File structure
+### 2.3.1 - File structure
 - Create logic folder
 - Create file structure to ensure modular programming
+- Create rough logic plan
+
+### 2.3.2 - Classes and state
+- Created Player class, initialGameState and action to add new player
+- Issue, setGameState doesn't update react state
+- Fix - notify all subscribers **ALGORITHM**
+
+### 2.3.3 - Dealing the flop
+- Create function to deal and shuffle an array of cards
+- Created actions for the pre-flop and flop **ALGORITHM**
+  - dealPlayerCards
+  - dealTableCards
+  - joinPlayer
+  - newGame
+  - resetTable
+  - setStage
+  - setUser
+  - updateSettings
+- Created stages which handle functionality for each stage
+- Tested flop stage (success)
+- Tested dealing to players (success)
+
+### 2.3.4 - Linking logic to UI
+- Set contents of TableContent and CardDisplay to reflect table and user cards
+- Test functionality (success)

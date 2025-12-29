@@ -1,9 +1,13 @@
 import { StyleSheet, View } from "react-native";
 import { ActionButton, CardDisplay, ChipDisplay, EquityDisplay, HandOrderDisplay, PokerTable, Sidebar, TableContent } from '../../components';
+import { useGameState } from '../../contexts/GameState';
 import { useTheme } from '../../contexts/ThemeContext';
 
 const GameplayScreen = () => {
   const { theme } = useTheme();
+  const { gameState } = useGameState();
+
+  console.log(gameState);
     
   return ( 
   <View style={[styles.outerContainer, {backgroundColor: theme.backgroundColor}]}>
@@ -14,15 +18,15 @@ const GameplayScreen = () => {
         numberOfSeats={10}
       >
         <TableContent
-          stage={'Flop'}
-          potSize={900_100}
-          communityCards={['3C', 'AC', '4D']}
+          stageNumber={gameState.stage}
+          potSize={gameState.table.pot}
+          communityCards={gameState.table.cards}
         ></TableContent>
       </PokerTable>
       <EquityDisplay equity={1.0}></EquityDisplay>
-      <CardDisplay hand={['AS', null]}></CardDisplay>
+      <CardDisplay hand={gameState.user.hand}></CardDisplay>
       <View style={styles.horizontal}>
-        <ChipDisplay chips={1_500_500}></ChipDisplay>
+        <ChipDisplay chips={gameState.user.chips}></ChipDisplay>
         <View style={styles.actionButtons}>
           <ActionButton text={'Fold'}></ActionButton>
           <ActionButton text={'Call'}></ActionButton>

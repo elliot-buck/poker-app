@@ -13,9 +13,7 @@ export const ThemeProvider = ({ children }) => {
     font: 'sans-serif',
     fontSize: 1,
   });
-
-  // The Theme Context Provider will make theme and setTheme available to all components
-
+  
   // This allows it to be used inside the ThemeContext wrapper in the root _layout file
   if (typeof children === 'function') {
     return <ThemeContext.Provider value={{ theme, setTheme }}>{children({theme, setTheme})}</ThemeContext.Provider>;
@@ -23,6 +21,7 @@ export const ThemeProvider = ({ children }) => {
 
   // Regular return value
   return <ThemeContext.Provider value={{ theme, setTheme }}>{children}</ThemeContext.Provider>;
+
 };
 
 export const useTheme = () => {
