@@ -1,16 +1,13 @@
-import { Table } from '..';
+import { Table } from '../table';
 
 // Game state before any players have joined
 export const initialGameState = {
   table: new Table(),
-  players: Object.fromEntries(
-    Array.from({ length: 11 }, (_, i) => [i, null])
-  ),
-  positions: [],
-  userPosition: null,
+  players: {},
+  seats: Array(10).fill(null),
   user: null,
   stage: 0, // Pre-flop
-  dealer: 0,
+  dealer: null,
 }
 
 export default initialGameState;

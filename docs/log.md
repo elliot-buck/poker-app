@@ -150,3 +150,7 @@
 - Set contents of TableContent and CardDisplay to reflect table and user cards
 - Test functionality (success)
 - Create opponent component
+
+### 2.3.5 - Betting, turn and river
+- Re-organised game logic files to ensure each file has one responsibility (to improve modularity)
+- Created state files for each folder to improve encapsulation

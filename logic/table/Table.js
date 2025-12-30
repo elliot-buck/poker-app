@@ -1,4 +1,4 @@
-import { newShuffledDeck } from "../deck";
+import { newShuffledDeck } from "../utils/deckUtils";
 
 export default class Table {
   constructor() {

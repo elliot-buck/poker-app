@@ -5,10 +5,10 @@ import { useTheme } from '../../contexts/ThemeContext';
 /**
  * PokerTable Component
  * 
- * @param width - Table width from centre to edge as a percentage of screen width
- * @param height - Table height from centre to edge as a percentage of screen height
- * @param numberOfSeats - Number of seats around the table
- * @param players - Players seated around the table
+ * @param {number} width - Table width from centre to edge as a percentage of screen width
+ * @param {number} height - Table height from centre to edge as a percentage of screen height
+ * @param {Array} playerSeats - Array of players seated around the table
+ * @param {Object} players - Dictionary of players
  */
 
 // Custom component which displays the poker table and places seats around the table
@@ -16,7 +16,7 @@ const PokerTable = ({
   children,
   width,
   height,
-  numberOfSeats,
+  playerSeats,
   players,
 }) => {
 
@@ -33,7 +33,7 @@ const PokerTable = ({
   const getSeatPosition = (seatNumber) => {
 
     // Set angle difference between each seat
-    const angleStep = (2 * Math.PI) / numberOfSeats;
+    const angleStep = (2 * Math.PI) / 10;
 
     // Get seat angle (start from top and go clockwise)
     let angle = Math.PI / 2 + angleStep * seatNumber;
@@ -81,16 +81,23 @@ const PokerTable = ({
         </View>
       </View>
       <View style={[ styles.seatContainer, {top: SEAT_HEIGHT} ]}>
-        {[...Array(numberOfSeats-1).keys()].map((seatNumber) => (
-          <Seat
-            width={SEAT_WIDTH}
-            height={SEAT_HEIGHT}
-            coordinates={getSeatPosition(seatNumber+1)}
-            position={seatNumber+2}
-            player={players[seatNumber+1]}
-          >
-          </Seat>
-        ))}
+        {[...Array(9).keys()].map((seatNumber) => {
+          const player = players[playerSeats[seatNumber + 1]];
+          if (!player) return null; // skip empty seats
+
+          console.log(player, seatNumber);
+
+          return (
+            <Seat
+              key={seatNumber}
+              width={SEAT_WIDTH}
+              height={SEAT_HEIGHT}
+              coordinates={getSeatPosition(seatNumber + 1)}
+              position={seatNumber + 2}
+              player={player}
+            />
+          );
+        })}
       </View>
     </View>
   );

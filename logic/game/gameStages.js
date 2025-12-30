@@ -1,7 +1,11 @@
-import { dealPlayerCards, dealTableCards, joinPlayer, newGame, resetTable, setStage, setUser, updateSettings } from '.';
-import { getUserInfo } from '../contexts/UserInfo';
+import { resetState } from '.';
+import { joinPlayer, setDealer, setUser } from '../players';
+import { resetSettings, updateSettings } from '../settings';
+import { getUserInfo, setStage } from '../state';
+import { dealPlayerCards, dealTableCards, resetTable } from '../table';
 
 /**
+ * Initiate the game
  * 
  * @param {string} difficulty - Difficulty (easy/medium/hard)
  * @param {number} turnLength - Time for each player to take their turn (s)
@@ -14,12 +18,15 @@ import { getUserInfo } from '../contexts/UserInfo';
 export function startGame(difficulty, turnLength, equityDisplay, helpDisplay, startingChips, bigBlind) {
   const userName = getUserInfo().name;
 
-  newGame();
+  resetState();
+  resetSettings();
 
-  updateSettings(difficulty, turnLength, equityDisplay, helpDisplay, bigBlind)
+  updateSettings(difficulty, turnLength, equityDisplay, helpDisplay, bigBlind);
 
   joinPlayer(0, userName, startingChips);
-  setUser(0)
+
+  setUser(userName);
+  setDealer(userName);
 
   joinPlayer(1, 'bot1', startingChips);
   joinPlayer(2, 'bot2', startingChips);
@@ -27,8 +34,12 @@ export function startGame(difficulty, turnLength, equityDisplay, helpDisplay, st
 
   // Temporary
   preFlop();
-  dealFlop();
+  flop();
 }
+
+/**
+ * Initiate the pre flop stage
+ */
 
 export function preFlop() {
   setStage(0);
@@ -37,7 +48,11 @@ export function preFlop() {
   dealPlayerCards();
 }
 
-export function dealFlop() {
+/**
+ * Initiate the flop stage
+ */
+
+export function flop() {
   setStage(1);
 
   dealTableCards(3);

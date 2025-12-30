@@ -1,7 +1,7 @@
+import { ActionButton, CardDisplay, ChipDisplay, EquityDisplay, HandOrderDisplay, PokerTable, Sidebar, TableContent } from '@/components';
+import { useGameState } from '@/contexts/GameState';
+import { useTheme } from '@/contexts/ThemeContext';
 import { StyleSheet, View } from "react-native";
-import { ActionButton, CardDisplay, ChipDisplay, EquityDisplay, HandOrderDisplay, PokerTable, Sidebar, TableContent } from '../../components';
-import { useGameState } from '../../contexts/GameState';
-import { useTheme } from '../../contexts/ThemeContext';
 
 const GameplayScreen = () => {
   const { theme } = useTheme();
@@ -16,6 +16,7 @@ const GameplayScreen = () => {
         width={55}
         height={25}
         numberOfSeats={10}
+        playerSeats={gameState.seats}
         players={gameState.players}
       >
         <TableContent
