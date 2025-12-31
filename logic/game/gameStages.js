@@ -1,7 +1,7 @@
 import { resetState } from '.';
 import { joinPlayer, setDealer, setUser } from '../players';
 import { resetSettings, updateSettings } from '../settings';
-import { getUserInfo, setStage } from '../state';
+import { getUserInfo } from '../state';
 import { bettingRound, dealPlayerCards, dealTableCards, resetTable, setBlinds } from '../table';
 
 /**
@@ -15,7 +15,7 @@ import { bettingRound, dealPlayerCards, dealTableCards, resetTable, setBlinds } 
  * @param {number} bigBlind - Value of the big blind
  */
 
-export function startGame(difficulty, turnLength, equityDisplay, helpDisplay, startingChips, bigBlind) {
+export const startGame = (difficulty, turnLength, equityDisplay, helpDisplay, startingChips, bigBlind) => {
   const userName = getUserInfo().name;
 
   resetState();
@@ -31,34 +31,75 @@ export function startGame(difficulty, turnLength, equityDisplay, helpDisplay, st
   joinPlayer(1, 'bot1', 'computer', startingChips);
   joinPlayer(2, 'bot2', 'computer', startingChips);
   joinPlayer(9, 'bot3', 'computer', startingChips);
-
-  // Temporary
-  preFlop();
-  // flop();
 }
 
 /**
  * Initiate the pre flop stage
  */
 
-export function preFlop() {
-  setStage(0);
-
+export const preFlop = async () => {
   resetTable();
   setBlinds();
 
   dealPlayerCards();
   
-  bettingRound().then(result => console.log(result));
+  return await bettingRound();
 }
 
 /**
  * Initiate the flop stage
  */
 
-export function flop() {
-  setStage(1);
-
-  bettingRound().then(result => console.log(result));
+export const flop = async () => {
   dealTableCards(3);
+  
+  return await bettingRound();
 }
+
+/**
+ * Initiate the turn stage
+ */
+
+export const turn = async () => {
+  dealTableCards(1);
+  
+  return await bettingRound();
+}
+
+/**
+ * Initiate the river stage
+ */
+
+export const river = async () => {
+  dealTableCards(1);
+  
+  return await bettingRound();
+}
+
+/**
+ * Format stage functions
+ */
+
+const STAGE_FUNCTIONS = {
+  'pre-flop': preFlop,
+  flop,
+  turn,
+  river,
+};
+
+/**
+ * Return the function associated with a string
+ * 
+ * @param {string} stage 
+ * @returns {function}
+ */
+
+export const getStageFunction = (stage) => {
+  const fn = STAGE_FUNCTIONS[stage];
+
+  if (!fn) {
+    throw new Error(`Unknown stage: ${stage}`);
+  }
+
+  return fn;
+};

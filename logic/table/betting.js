@@ -27,10 +27,10 @@ export function playerStatuses() {
   const players = getPlayers();
   const betOrder = getTable().playerOrder;
 
-  console.log('bot1', players['bot1'].status);
-
   return betOrder.map((playerID) => (players[playerID].status));
 }
+
+// Run a round of betting
 
 export const bettingRound = async () => {
   const { players, table } = getGameState();
@@ -46,19 +46,15 @@ export const bettingRound = async () => {
   // End loop when no player is pending
   while (playerStatuses().includes('pending')) {
     let action;
-
+    
     const bettingPlayer = players[table.bettingPlayerID];
-
-    console.log('Betting player:', table.bettingPlayerID);
     
     // If the betting player is the user, await user action
     // Else, collect the computer response
 
     if (bettingPlayer.type == Player.TYPES.USER) {
-      console.log('waiting for user action');
       await nextTick();
       action = await waitForUserAction();
-      console.log('User action:', action);
     } else if (bettingPlayer.type == Player.TYPES.COMPUTER) {
       action = bettingPlayer.action();
     } else {
@@ -66,12 +62,17 @@ export const bettingRound = async () => {
     }
 
     applyAction(bettingPlayer, action, table.maxBet);
-    console.log('After bet:', playerStatuses());
+
+    // Break and return the winning player if there's only one player left
+    const winningPlayer = checkForWin();
+
+    // Return if winning player is not null
+    if (winningPlayer) return winningPlayer;
 
     nextBet();
   }
 
-  return true;
+  return null;
 };
 
 /**
@@ -83,7 +84,6 @@ export function applyAction(player, actionObject, currentMinimumBet) {
   const table = getTable();
 
   const amountToCall = currentMinimumBet - player.betAmount;
-  console.log(type.toLowerCase());
 
   // Apply action based on type
   switch (type.toLowerCase()) {
@@ -98,6 +98,7 @@ export function applyAction(player, actionObject, currentMinimumBet) {
       player.check();
       break;
     case 'raise':
+      console.log('raise1');
       const betAmount = amountToCall + amount;
       player.bet(betAmount);
       table.pot += betAmount;
@@ -113,6 +114,7 @@ export function applyAction(player, actionObject, currentMinimumBet) {
  */
 
 export function raiseMinimumBet(bettingPlayerID, amount) {
+  console.log('raise');
   const table = getTable();
   const players = getPlayers();
 
@@ -120,9 +122,28 @@ export function raiseMinimumBet(bettingPlayerID, amount) {
 
   for (const [playerID, player] of Object.entries(players)) {
     if (playerID != bettingPlayerID) {
-      player.resetStatus()
+      console.log('resetting', playerID);
+      player.resetStatus();
     }
   }
+}
+
+/**
+ * Check if a player has won, if so return the winning player
+ * 
+ * @returns {Player | null}
+ */
+
+export function checkForWin() {
+  // Retrieve player order
+  const playerOrder = getTable().playerOrder;
+
+  // Length 1 means that player has won
+  if (playerOrder.length === 1) {
+    return playerOrder[0];
+  }
+
+  return null;
 }
 
 /**

@@ -14,8 +14,6 @@ export const waitForUserAction = () => {
 };
 
 export const resolveUserAction = (action) => {
-  console.log('resolveUserAction called with', action);
-  
   if (pendingActionResolver) {
     pendingActionResolver(action);
     pendingActionResolver = null;

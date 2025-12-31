@@ -1,6 +1,6 @@
 import { CentredButton, HeaderText, MultiSelect, SpaceBetweenContainer, TextInputField, ToggleButton } from '@/components';
 import { useTheme } from '@/contexts/ThemeContext';
-import { startGame } from '@/logic';
+import { playGame } from '@/logic';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
@@ -104,7 +104,7 @@ const SetupMenuScreen = () => {
 
           <CentredButton
             onPress={() => {
-              startGame(difficulty, turnLength, equityDisplay, helpDisplay, startingChips, bigBlind);
+              playGame(difficulty, turnLength, equityDisplay, helpDisplay, startingChips, bigBlind);
               router.push('/gameplay');
             }}
           >

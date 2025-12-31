@@ -48,7 +48,6 @@ export default class Player {
   }
 
   setStatus(newStatus) {
-    console.log('SETTING STATUS TO', newStatus)
     this.status = newStatus;
   }
 
@@ -59,7 +58,7 @@ export default class Player {
    */
 
   check() {
-    
+
   }
 
   bet(amount) {

@@ -1,24 +1,26 @@
+import { useGameState } from '@/contexts/GameState';
+import { useTheme } from '@/contexts/ThemeContext';
+import { getSmallCardImage } from '@/UI_utils';
 import { Image, StyleSheet, Text, View } from 'react-native';
-import { useTheme } from '../../contexts/ThemeContext';
-import { getSmallCardImage } from '../../utils';
 
 /**
  * Opponent Component
  * 
- * @param player - Player that this component is representing
+ * @param playerID - ID of the player that this component is representing
  * @param seatHeight
  */
 
 // Custom component which displays an empty seat
 const Opponent = ({
-  player,
+  playerID,
   seatHeight,
 }) => {
 
   // Retrieve the theme object from context
-  const { theme } = useTheme();
+  const { theme } = useTheme(); 
+  const { gameState } = useGameState();
 
-  const { name, chips, hand } = player;
+  const player = gameState.players[playerID]
 
   const CARD_WIDTH = 50 * 0.75;
   const CARD_HEIGHT = 70 * 0.75;
@@ -41,7 +43,7 @@ const Opponent = ({
             fontSize: 12 * theme.fontSize,
           }
         ]}>
-          {name}
+          {player.name}
         </Text>
         <Text style={[
           styles.infoText,
@@ -50,13 +52,13 @@ const Opponent = ({
             fontSize: 12 * theme.fontSize,
           }
         ]}>
-          {chips}
+          {player.chips}
         </Text>
       </View>
 
       <View style={styles.cardContainer}>
         <Image
-          source={getSmallCardImage(hand[0])}
+          source={getSmallCardImage(player.hand[0])}
           style={[
             styles.leftCard,
             {
@@ -69,7 +71,7 @@ const Opponent = ({
           resizeMode="contain"
         />
         <Image
-          source={getSmallCardImage(hand[1])}
+          source={getSmallCardImage(player.hand[1])}
           style={[
             styles.rightCard,
             {

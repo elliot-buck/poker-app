@@ -1,7 +1,7 @@
 import { Image, StyleSheet, View } from 'react-native';
 import { BodyText } from '../../components';
 import { useTheme } from '../../contexts/ThemeContext';
-import { formatNumber, getSmallCardImage, STAGE_NAMES } from '../../utils';
+import { formatNumber, getSmallCardImage, STAGE_NAMES } from '../../UI_utils';
 
 
 /**

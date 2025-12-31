@@ -1,6 +1,6 @@
 import { Dimensions, Image, StyleSheet, Text, View } from 'react-native';
 import { useTheme } from '../../contexts/ThemeContext';
-import { getCardImage } from '../../utils';
+import { getCardImage } from '../../UI_utils';
 
 /**
  * CardDisplay Component

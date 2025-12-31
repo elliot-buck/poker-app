@@ -142,18 +142,23 @@
   - setStage
   - setUser
   - updateSettings
-- Created stages which handle functionality for each stage
+- Created stages which handle functionality for each stage **ALGORITHM**
 - Tested flop stage (success)
 - Tested dealing to players (success)
 
 ### 2.3.4 - Linking logic to UI
 - Set contents of TableContent and CardDisplay to reflect table and user cards
 - Test functionality (success)
-- Create opponent component
+- Create opponent component 
 
 ### 2.3.5 - Betting, turn and river
 - Re-organised game logic files to ensure each file has one responsibility (to improve modularity)
 - Created state files for each folder to improve encapsulation
-- Create async betting round to handle user action
+- Create async betting round to handle user action **ALGORITHM**
 - Issue - next player returning undefined
 - Completed betting + test
+
+### 2.3.6 - Further rounds and win conditions
+- Implement turn and river
+- Collate stages into a single runGame function **ALGORITHM**
+- Run round, error expected (success) 

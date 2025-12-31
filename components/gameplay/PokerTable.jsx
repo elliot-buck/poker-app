@@ -8,7 +8,6 @@ import { useTheme } from '../../contexts/ThemeContext';
  * @param {number} width - Table width from centre to edge as a percentage of screen width
  * @param {number} height - Table height from centre to edge as a percentage of screen height
  * @param {Array} playerSeats - Array of players seated around the table
- * @param {Object} players - Dictionary of players
  */
 
 // Custom component which displays the poker table and places seats around the table
@@ -17,7 +16,6 @@ const PokerTable = ({
   width,
   height,
   playerSeats,
-  players,
 }) => {
 
   // Retrieve the theme object from context
@@ -88,7 +86,7 @@ const PokerTable = ({
             height={SEAT_HEIGHT}
             coordinates={getSeatPosition(seatNumber + 1)}
             position={seatNumber + 2}
-            player={players[playerSeats[seatNumber + 1]]}
+            playerID={playerSeats[seatNumber + 1]}
           />
         ))}
       </View>

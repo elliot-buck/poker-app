@@ -1,6 +1,6 @@
 import { Image, StyleSheet, Text, View } from 'react-native';
 import { useTheme } from '../../contexts/ThemeContext';
-import { getCardImage } from '../../utils';
+import { getCardImage } from '../../UI_utils';
 
 const Sidebar = () => {
   const { theme } = useTheme();

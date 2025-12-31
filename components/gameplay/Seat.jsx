@@ -8,7 +8,7 @@ import { EmptySeat, Opponent } from '..';
  * @param height - Seat UI height
  * @param coordinates - (x, y) coordinates relative to the table
  * @param position - Seat position around the table
- * @param player - Which player is sitting at this seat
+ * @param playerID - Which player is sitting at this seat
  */
 
 // Custom component which displays a seat around the table
@@ -17,7 +17,7 @@ const Seat = ({
   height,
   coordinates,
   position,
-  player=null,
+  playerID=null,
 }) => {
 
   return (
@@ -31,8 +31,8 @@ const Seat = ({
         coordinates
       ]}
     >
-      { player ? (
-        <Opponent player={player} seatHeight={height} ></Opponent>
+      { playerID ? (
+        <Opponent playerID={playerID} seatHeight={height} ></Opponent>
       ) : (
         <EmptySeat position={position} ></EmptySeat>
       )}

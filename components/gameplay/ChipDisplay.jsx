@@ -1,7 +1,7 @@
 import { Image, StyleSheet, View } from 'react-native';
 import { HeaderText } from '../.';
 import { useTheme } from '../../contexts/ThemeContext';
-import { formatNumber } from '../../utils';
+import { formatNumber } from '../../UI_utils';
 
 /**
  * ChipDisplay Component
