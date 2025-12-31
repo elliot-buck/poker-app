@@ -2,7 +2,7 @@ import { resetState } from '.';
 import { joinPlayer, setDealer, setUser } from '../players';
 import { resetSettings, updateSettings } from '../settings';
 import { getUserInfo, setStage } from '../state';
-import { dealPlayerCards, dealTableCards, resetTable } from '../table';
+import { bettingRound, dealPlayerCards, dealTableCards, resetTable, setBlinds } from '../table';
 
 /**
  * Initiate the game
@@ -22,19 +22,19 @@ export function startGame(difficulty, turnLength, equityDisplay, helpDisplay, st
   resetSettings();
 
   updateSettings(difficulty, turnLength, equityDisplay, helpDisplay, bigBlind);
-
-  joinPlayer(0, userName, startingChips);
+  joinPlayer(0, userName, 'user', startingChips);
 
   setUser(userName);
   setDealer(userName);
 
-  joinPlayer(1, 'bot1', startingChips);
-  joinPlayer(2, 'bot2', startingChips);
-  joinPlayer(9, 'bot3', startingChips);
+
+  joinPlayer(1, 'bot1', 'computer', startingChips);
+  joinPlayer(2, 'bot2', 'computer', startingChips);
+  joinPlayer(9, 'bot3', 'computer', startingChips);
 
   // Temporary
   preFlop();
-  flop();
+  // flop();
 }
 
 /**
@@ -45,7 +45,11 @@ export function preFlop() {
   setStage(0);
 
   resetTable();
+  setBlinds();
+
   dealPlayerCards();
+  
+  bettingRound().then(result => console.log(result));
 }
 
 /**
@@ -55,5 +59,6 @@ export function preFlop() {
 export function flop() {
   setStage(1);
 
+  bettingRound().then(result => console.log(result));
   dealTableCards(3);
 }

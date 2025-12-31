@@ -6,7 +6,7 @@ export const setPlayers = (updater) => {
   setGameState(state => ({
     ...state,
     players: typeof updater === 'function'
-      ? updater(state.table)
+      ? updater(state.players)
       : updater
   }));
 };

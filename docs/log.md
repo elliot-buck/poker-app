@@ -154,3 +154,6 @@
 ### 2.3.5 - Betting, turn and river
 - Re-organised game logic files to ensure each file has one responsibility (to improve modularity)
 - Created state files for each folder to improve encapsulation
+- Create async betting round to handle user action
+- Issue - next player returning undefined
+- Completed betting + test

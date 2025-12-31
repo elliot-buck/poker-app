@@ -13,3 +13,20 @@ export function resetTable() {
 
   return table;
 }
+
+/**
+ * Return the next player in rotation
+ */
+
+export function nextPlayer(previousPlayer) {
+  const playerOrder = getTable().playerOrder;
+
+  // Get the index of the player's ID in the player order array
+  let playerPositionIndex = playerOrder.indexOf(previousPlayer);
+
+  // Incriment through the player order array, looping at the end
+  playerPositionIndex = (playerPositionIndex+1) % playerOrder.length;
+  let nextPlayerID = playerOrder[playerPositionIndex];
+
+  return nextPlayerID;
+}

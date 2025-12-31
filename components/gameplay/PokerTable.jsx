@@ -81,23 +81,16 @@ const PokerTable = ({
         </View>
       </View>
       <View style={[ styles.seatContainer, {top: SEAT_HEIGHT} ]}>
-        {[...Array(9).keys()].map((seatNumber) => {
-          const player = players[playerSeats[seatNumber + 1]];
-          if (!player) return null; // skip empty seats
-
-          console.log(player, seatNumber);
-
-          return (
-            <Seat
-              key={seatNumber}
-              width={SEAT_WIDTH}
-              height={SEAT_HEIGHT}
-              coordinates={getSeatPosition(seatNumber + 1)}
-              position={seatNumber + 2}
-              player={player}
-            />
-          );
-        })}
+        {[...Array(9).keys()].map((seatNumber) => (
+          <Seat
+            key={seatNumber}
+            width={SEAT_WIDTH}
+            height={SEAT_HEIGHT}
+            coordinates={getSeatPosition(seatNumber + 1)}
+            position={seatNumber + 2}
+            player={players[playerSeats[seatNumber + 1]]}
+          />
+        ))}
       </View>
     </View>
   );

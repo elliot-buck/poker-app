@@ -16,8 +16,7 @@ function shuffleArray(array) {
 }
 
 export const newDeck = () => {
-  const deck = []
-  console.log(SUITS)
+  const deck = [];
 
   SUITS.forEach(suit => {
     deck.push(...RANKS.map(rank => ( rank + suit )));

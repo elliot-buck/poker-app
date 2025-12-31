@@ -1,5 +1,5 @@
-import { Player } from '.';
-import { getGameState, setGameState, setPlayers } from '../state';
+import { Computer, User } from '.';
+import { getTable, setGameState, setPlayers } from '../state';
 
 /**
  * Adds a new player to the current game state
@@ -8,36 +8,29 @@ import { getGameState, setGameState, setPlayers } from '../state';
  * @param {number} chips
  */
 
-export function joinPlayer(seat, name, chips = 1000) {
+export function joinPlayer(seat, name, type, chips = 1000) {
+  const table = getTable();
+
   const PLAYER_ID = name;
+  let newPlayer;
   
-  const newPlayer = new Player(name, chips);
+  if (type.toLowerCase() == 'user') {
+    newPlayer = new User(name, chips);
+  } else if (type.toLowerCase() == 'computer') {
+    newPlayer = new Computer(name, chips);
+  } else {
+    throw new Error('Player must be of type "user" or "computer"');
+  }
 
   setPlayers((prev) => {
     prev[PLAYER_ID] = newPlayer;
+
     return prev;
   });
 
-  setGameState((prev) => {
-    prev.seats[seat] = PLAYER_ID;
-    return prev
-  });
+  table.seatPlayer(PLAYER_ID, seat);
 
   return newPlayer;
-}
-
-/**
- * Get the seat of player
- * 
- * @param {Player} player
- */
-
-export function seat(player) {
-  const seats = getGameState().seats;
-
-  console.log(player, player.id, seats);
-
-  return seats.indexOf(player.id);
 }
 
 /**

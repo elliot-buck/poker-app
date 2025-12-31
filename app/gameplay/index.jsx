@@ -1,13 +1,14 @@
 import { ActionButton, CardDisplay, ChipDisplay, EquityDisplay, HandOrderDisplay, PokerTable, Sidebar, TableContent } from '@/components';
+import { useGameSettings } from '@/contexts/GameSettings';
 import { useGameState } from '@/contexts/GameState';
 import { useTheme } from '@/contexts/ThemeContext';
+import { PlayerAction, resolveUserAction } from '@/logic/utils';
 import { StyleSheet, View } from "react-native";
 
 const GameplayScreen = () => {
   const { theme } = useTheme();
   const { gameState } = useGameState();
-
-  console.log(gameState);
+  const { gameSettings } = useGameSettings();
     
   return ( 
   <View style={[styles.outerContainer, {backgroundColor: theme.backgroundColor}]}>
@@ -16,7 +17,7 @@ const GameplayScreen = () => {
         width={55}
         height={25}
         numberOfSeats={10}
-        playerSeats={gameState.seats}
+        playerSeats={gameState.table.seats}
         players={gameState.players}
       >
         <TableContent
@@ -30,10 +31,19 @@ const GameplayScreen = () => {
       <View style={styles.horizontal}>
         <ChipDisplay chips={gameState.user.chips}></ChipDisplay>
         <View style={styles.actionButtons}>
-          <ActionButton text={'Fold'}></ActionButton>
-          <ActionButton text={'Call'}></ActionButton>
-          <ActionButton text={'Check'}></ActionButton>
-          <ActionButton text={'Bet'}></ActionButton>
+          <ActionButton title="Check" onPress={() => resolveUserAction({
+            type: PlayerAction.CHECK
+          })} />
+          <ActionButton title="Call" onPress={() => resolveUserAction({
+            type: PlayerAction.CALL
+          })} />
+          <ActionButton title="Fold" onPress={() => resolveUserAction({
+            type: PlayerAction.FOLD
+          })} />
+          <ActionButton title="Raise" onPress={() => resolveUserAction({
+            type: PlayerAction.RAISE,
+            amount: 50,
+          })} />
         </View>
       </View>
     </View>

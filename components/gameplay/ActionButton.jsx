@@ -5,14 +5,13 @@ import { useTheme } from '../../contexts/ThemeContext';
 /**
  * ActionButton Component
  * 
- * @param icon - Name of button icon
- * @param text - Text to display on the button
+ * @param title - Text to display on the button
  * @param onPress - Action to carry out on click
  */
 
 // Custom component which displays a player's chip count
 const ActionButton = ({
-    text,
+    title,
     onPress,
   }) => {
     const { theme } = useTheme();
@@ -36,7 +35,7 @@ const ActionButton = ({
               textAlignVertical: 'center',
               lineHeight: theme.fontSize * 30,
           }}>
-            {text}
+            {title}
           </HeaderText>
       </TouchableOpacity>
     );

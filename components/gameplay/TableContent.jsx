@@ -24,12 +24,8 @@ const TableContent = ({
     const normalisedCards = [...communityCards, ...Array(5 - communityCards.length).fill(null)];
     const stageName = STAGE_NAMES[stageNumber]
 
-    console.log('Stage names', stageNumber, STAGE_NAMES, stageName)
-
     const CARD_WIDTH = 40;
     const CARD_HEIGHT = 56;
-
-    console.log(communityCards, normalisedCards);
 
     // Return Card Display
     return (  
