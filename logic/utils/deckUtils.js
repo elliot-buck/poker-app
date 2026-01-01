@@ -19,7 +19,7 @@ export const newDeck = () => {
   const deck = [];
 
   SUITS.forEach(suit => {
-    deck.push(...RANKS.map(rank => ( rank + suit )));
+    deck.push(...RANKS.map(value => ( value + suit )));
   })
 
   return deck;

@@ -119,7 +119,7 @@
 - Add table content
 - Fill out table array **ALGORITHM**
 
-## 2.3 - Gameplay logic
+## 2.3 - Game flow logic
 
 ### 2.3.1 - File structure
 - Create logic folder
@@ -158,7 +158,31 @@
 - Issue - next player returning undefined
 - Completed betting + test
 
-### 2.3.6 - Further rounds and win conditions
+### 2.3.6 - Further rounds
 - Implement turn and river
 - Collate stages into a single runGame function **ALGORITHM**
 - Run round, error expected (success) 
+- Run round, opponents fold: player wins (success)
+
+## 2.4 - Poker logic
+
+### 2.4.1 - Hand eval
+- Create handEval function
+- Importing vitest for testing functionality
+- Create function to check how many duplicates the hand contains
+- Test countDuplicates function (success)
+- Create function to check for a flush
+- Test isFlush function (success)
+- Create function to check for a straight
+- Helper function to sort an array based on dictionary values
+- Using mergeSort algorithm
+- Helper function to check if the sorted hand is in the RANKS array (meaning it must be a straight)
+- Test isStraight function (fail) - doesn't work for A2345
+- Fixed + retested (success)
+- Made functions work for hand size > 5
+- Made functions return the best hand values/suit rather than a boolean
+- Simplified sortByRank and sortBySuit functions
+- Created a function to find the best hand subject to a filter by suit/rank
+- Completed best set function
+- Completed best hand function
+- Tested (success)

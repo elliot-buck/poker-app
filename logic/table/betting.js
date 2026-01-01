@@ -67,7 +67,7 @@ export const bettingRound = async () => {
     const winningPlayer = checkForWin();
 
     // Return if winning player is not null
-    if (winningPlayer) return winningPlayer;
+    if (winningPlayer) return [winningPlayer];
 
     nextBet();
   }
