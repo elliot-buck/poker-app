@@ -1,7 +1,7 @@
 import { resetState } from '.';
-import { joinPlayer, setDealer, setUser } from '../players';
+import { getWinningPlayers, joinPlayer, setDealer, setUser } from '../players';
 import { resetSettings, updateSettings } from '../settings';
-import { getUserInfo } from '../state';
+import { getPlayers, getUserInfo } from '../state';
 import { bettingRound, dealPlayerCards, dealTableCards, resetTable, setBlinds } from '../table';
 
 /**
@@ -43,7 +43,11 @@ export const preFlop = async () => {
 
   dealPlayerCards();
   
-  return await bettingRound();
+  const bettingWinner = await bettingRound()
+  
+  if (bettingWinner) {
+    return formatResult(bettingWinner);
+  }
 }
 
 /**
@@ -53,7 +57,11 @@ export const preFlop = async () => {
 export const flop = async () => {
   dealTableCards(3);
   
-  return await bettingRound();
+  const bettingWinner = await bettingRound()
+  
+  if (bettingWinner) {
+    return formatResult(bettingWinner);
+  }
 }
 
 /**
@@ -62,8 +70,12 @@ export const flop = async () => {
 
 export const turn = async () => {
   dealTableCards(1);
+
+  const bettingWinner = await bettingRound()
   
-  return await bettingRound();
+  if (bettingWinner) {
+    return formatResult(bettingWinner);
+  }
 }
 
 /**
@@ -72,8 +84,63 @@ export const turn = async () => {
 
 export const river = async () => {
   dealTableCards(1);
+
+  const bettingWinner = await bettingRound();
+  const winningPlayers = getWinningPlayers(getPlayers());
   
-  return await bettingRound();
+  if (bettingWinner) {
+    return formatResult(bettingWinner);
+  } 
+
+  return formatResult(winningPlayers, true);
+}
+
+/**
+ * Format the round result
+ */
+
+const WIN_TYPE = {
+  SHOWDOWN: 'showdown',
+  NO_SHOWDOWN: 'no_showdown'
+}
+
+function formatResult(winningPlayers, winAtShowdown=false) {
+  let winType;
+
+  console.log(winningPlayers, winAtShowdown);
+
+  if (!winAtShowdown) {
+    winType = WIN_TYPE.NO_SHOWDOWN;
+
+    return Object.fromEntries(
+      winningPlayers.map(playerID => (
+        playerID,
+        {
+          winType: winType
+        }
+      ))
+    );
+  }
+
+  winType = WIN_TYPE.SHOWDOWN;
+
+  console.log(Object.entries(winningPlayers).map(([playerID, winningHand]) => [
+      playerID,
+      {
+        winType: winType,
+        hand: winningHand
+      }
+    ]));
+
+  return Object.fromEntries(
+    Object.entries(winningPlayers).map(([playerID, winningHand]) => [
+      playerID,
+      {
+        winType: winType,
+        hand: winningHand
+      }
+    ])
+  );
 }
 
 /**
@@ -82,9 +149,9 @@ export const river = async () => {
 
 const STAGE_FUNCTIONS = {
   'pre-flop': preFlop,
-  flop,
-  turn,
-  river,
+  'flop': flop,
+  'turn': turn,
+  'river': river,
 };
 
 /**

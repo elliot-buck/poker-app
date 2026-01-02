@@ -4,7 +4,19 @@ export const RANKS = [
   '2', '3', '4', '5', '6', '7', 
   '8', '9', 'T', 'J', 'Q', 'K', 
   'A'
-]
+];
+
+export const HAND_TYPES = {
+  HIGH_CARD: 'high-card',
+  ONE_PAIR: 'one-pair',
+  TWO_PAIR: 'two-pair',
+  THREE_OF_A_KIND: 'three-of-kind',
+  STRAIGHT: 'straight',
+  FLUSH: 'flush',
+  FULL_HOUSE: 'full-house',
+  FOUR_OF_A_KIND: 'four-of-a-kind',
+  STRAIGHT_FLUSH: 'straight-flush',
+};
 
 function shuffleArray(array) {
   const arr = [...array];

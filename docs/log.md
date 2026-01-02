@@ -186,3 +186,20 @@
 - Completed best set function
 - Completed best hand function
 - Tested (success)
+
+### 2.4.2 - Comparing scores
+- Create handScore function
+- Must produce a numerical score which is greater than every inferior hand, less than every superior hand and equal to every hand of equal value, so scores can be easily compared
+- Tested function (partial success)
+- Error, floating point arithmetic creating rounding errors
+- Fixed - only using positional integer maths
+- Added function to return type, hand and score
+- Function to select the player(s) with the highest score
+- Function to return the winning player(s) as the round winner(s)
+
+### 2.4.3 - Distributing pot
+- Create function to distribute pot between each winning player
+- Create multiple pots (for when players go all in)
+- When a player is put all in, all new bets go to a seperate pot
+- Each pot stores contributing players
+- Each pot is distributed individually

@@ -2,14 +2,16 @@ import { getTable } from '../state';
 
 export default class Player {
   constructor(name, chips = 0) {
-    this.type;
     this._name = name;
     this._id = name;
+    this._hand;
+    this._seat;
+
+    this.type;
     this.chips = chips;
-    this.hand = [];
+    this.holeCards = [];
     this.status;
     this.betAmount = 0;
-    this._seat;
   }
 
   get seat() {
@@ -29,16 +31,20 @@ export default class Player {
     return this._id;
   }
 
+  get hand() {
+    return [...this.holeCards, ...getTable().cards];
+  }
+
   setChips(chips) {
     this.chips = chips;
   }
 
   receiveCard(card) {
-    this.hand.push(card);
+    this.holeCards.push(card);
   }
 
   resetHand() {
-    this.hand = [];
+    this.holeCards = [];
     this.status = 'pending';
     this.betAmount = 0;
   }

@@ -58,7 +58,7 @@ const Opponent = ({
 
       <View style={styles.cardContainer}>
         <Image
-          source={getSmallCardImage(player.hand[0])}
+          source={getSmallCardImage(player.holeCards[0])}
           style={[
             styles.leftCard,
             {
@@ -71,7 +71,7 @@ const Opponent = ({
           resizeMode="contain"
         />
         <Image
-          source={getSmallCardImage(player.hand[1])}
+          source={getSmallCardImage(player.holeCards[1])}
           style={[
             styles.rightCard,
             {

@@ -3,6 +3,10 @@ import { Player } from '../players';
 import { getGameState, getPlayers, getSettings, getTable, setTable } from '../state';
 import { waitForUserAction } from '../utils';
 
+/**
+ * Wait for UI elements to load
+ */
+
 function nextTick() {
   return new Promise(resolve => setTimeout(resolve, 0));
 }

@@ -57,7 +57,7 @@ export default class Table {
 
     const player = getPlayers()[playerID];
 
-    return player
+    return player;
   }
   
   seatPlayer(playerID, seat) {

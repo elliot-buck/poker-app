@@ -8,7 +8,7 @@ export default class Computer extends Player {
 
   action() {
     return {
-      type: 'fold',
+      type: 'call',
     };
   }
 }

@@ -1,50 +1,38 @@
+import { useTheme } from '@/contexts/ThemeContext';
+import { HAND_TYPES } from '@/logic/utils';
+import { getCardImage } from '@/UI_utils';
 import { Image, StyleSheet, Text, View } from 'react-native';
-import { useTheme } from '../../contexts/ThemeContext';
-import { getCardImage } from '../../UI_utils';
 
 const Sidebar = () => {
   const { theme } = useTheme();
 
   const EXAMPLE_HANDS = {
-    'High Card': ['AS', 'KD', '7H', '5C', '2D'],
+    [HAND_TYPES.HIGH_CARD]: ['AS', 'KD', '7H', '5C', '2D'],
 
-    'One Pair': ['AS', 'AD', '7H', '5C', '2D'],
+    [HAND_TYPES.ONE_PAIR]: ['AS', 'AD', '7H', '5C', '2D'],
 
-    'Two Pair': ['AS', 'AD', '7H', '7C', '2D'],
+    [HAND_TYPES.TWO_PAIR]: ['AS', 'AD', '7H', '7C', '2D'],
 
-    'Three of a Kind': ['AS', 'AD', 'AH', '5C', '2D'],
+    [HAND_TYPES.THREE_OF_A_KIND]: ['AS', 'AD', 'AH', '5C', '2D'],
 
-    'Straight': ['5S', '6D', '7H', '8C', '9D'],
+    [HAND_TYPES.STRAIGHT]: ['5S', '6D', '7H', '8C', '9D'],
 
-    'Flush': ['AS', 'JS', '9S', '5S', '2S'],
+    [HAND_TYPES.FLUSH]: ['AS', 'JS', '9S', '5S', '2S'],
 
-    'Full House': ['AS', 'AD', 'AH', '7C', '7D'],
+    [HAND_TYPES.FULL_HOUSE]: ['AS', 'AD', 'AH', '7C', '7D'],
 
-    'Four of a Kind': ['AS', 'AD', 'AH', 'AC', '7D'],
+    [HAND_TYPES.FOUR_OF_A_KIND]: ['AS', 'AD', 'AH', 'AC', '7D'],
 
-    'Straight Flush': ['5S', '6S', '7S', '8S', '9S'],
-
-    'Royal Flush': ['TS', 'JS', 'QS', 'KS', 'AS']
+    [HAND_TYPES.STRAIGHT_FLUSH]: ['5S', '6S', '7S', '8S', '9S'],
   };
 
-  const HAND_ORDER = [
-    'Royal Flush',
-    'Straight Flush',
-    'Four of a Kind',
-    'Full House',
-    'Flush',
-    'Straight',
-    'Three of a Kind',
-    'Two Pair',
-    'One Pair',
-    'High Card'
-  ];
+  
 
   return (
     <View style={[styles.container, {backgroundColor: theme.backgroundColor}]}>
-      {HAND_ORDER.map((handName, index) => (
+      {Object.entries(HAND_TYPES).map(([, handName], index) => (
         <View 
-          key={handName}
+          key={handName.replace(/^-_*(.)|-_+(.)/g, (s, c, d) => c ? c.toUpperCase() : ' ' + d.toUpperCase())}
           style={[
             styles.row,
             (index % 2 === 1)

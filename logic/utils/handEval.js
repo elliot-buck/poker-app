@@ -1,4 +1,4 @@
-import { containsSubarray, longestCommonSubarray, RANKS, SUITS } from '.';
+import { containsSubarray, HAND_TYPES, longestCommonSubarray, RANKS, SUITS } from '.';
 
 const RANK_VALUES = Object.fromEntries(
   RANKS.map((rank, index) => [rank, index])
@@ -8,15 +8,19 @@ const SUIT_VALUES = Object.fromEntries(
   SUITS.map((suit, index) => [suit, index])
 );
 
+const HAND_VALUES = Object.fromEntries(
+  Object.values(HAND_TYPES).map((handType, index) => [handType, index])
+);
+
 const SET_NAME_BY_SIGNATURE = {
-  '4': 'four-of-a-kind',
-  '4,3': 'four-of-a-kind',
-  '3,3': 'full-house',
-  '3,2': 'full-house',
-  '3': 'three-of-a-kind',
-  '2,2': 'two-pair',
-  '2': 'one-pair',
-  '': 'high-card',
+  '4': HAND_TYPES.FOUR_OF_A_KIND,
+  '4,3': HAND_TYPES.FOUR_OF_A_KIND,
+  '3,3': HAND_TYPES.FULL_HOUSE,
+  '3,2': HAND_TYPES.FULL_HOUSE,
+  '3': HAND_TYPES.THREE_OF_A_KIND,
+  '2,2': HAND_TYPES.TWO_PAIR,
+  '2': HAND_TYPES.ONE_PAIR,
+  '': HAND_TYPES.HIGH_CARD,
 };
 
 /**
@@ -37,22 +41,30 @@ export function bestHand(hand) {
   const flushSuit = flush(suits);
   const straightRanks = straight(ranks);
 
-  if (flushSuit && straightRanks) return {
-    type: 'straight-flush', 
-    hand: bestFilteredHand(hand, 5, (card) => (
+  if (flushSuit && straightRanks) return returnHand(
+    HAND_TYPES.STRAIGHT_FLUSH, 
+    bestFilteredHand(hand, 5, (card) => (
       straightRanks.includes(card[0])
       && (card[1] === flushSuit)
     ))
-  }
+  )
 
-  if (flushSuit) return {
-    type: 'flush',
-    hand: bestFilteredHand(hand, 5, (card) => (card[1] === flushSuit))
-  }
+  if (flushSuit) return returnHand(
+    HAND_TYPES.FLUSH,
+    bestFilteredHand(hand, 5, (card) => (card[1] === flushSuit))
+  )
 
-  if (straightRanks) return {
-    type: 'straight',
-    hand: bestFilteredHand(hand, 5, (card) => straightRanks.includes(card[0]))
+  if (straightRanks) {
+    const bestHand = bestFilteredHand(hand, 5, (card) => straightRanks.includes(card[0]));
+
+    if (bestHand[0][0] === 'A') {
+      bestHand.push(bestHand.shift());
+    }
+
+    return returnHand(
+      HAND_TYPES.STRAIGHT,
+      bestHand,
+    );
   }
 
   const { type, set } = bestSet(ranks);
@@ -62,9 +74,43 @@ export function bestHand(hand) {
   const bestSetCards = bestFilteredHand(hand, 5, (card) => set.includes(card[0]));
   const bestRemainingCards = bestFilteredHand(hand, 5 - bestSetCards.length, (card) => !set.includes(card[0]));
 
+  return returnHand(
+    type,
+    [...bestSetCards, ...bestRemainingCards],
+  );
+}
+
+/**
+ * Returns a numerical score so that hands can be compared
+ * 
+ * @param {String} type - Hand type string
+ * @param {Array} hand - Cards array
+ * @returns {number} - Hand score
+ */
+
+export function handScore(type, hand) {
+  let score = HAND_VALUES[type];
+
+  for (const [rank] of hand) {
+    score = score * 13 + RANK_VALUES[rank];
+  }
+
+  return score;
+}
+
+/**
+ * Returns an object containing the hand type, hand and score
+ * 
+ * @param {string} type - Hand type
+ * @param {Array} hand - Hand to return
+ * @returns {Object} - { type, hand, score }
+ */
+
+export function returnHand(type, hand) {
   return {
     type: type,
-    hand: [...bestSetCards, ...bestRemainingCards]
+    hand: hand,
+    score: handScore(type, hand),
   }
 }
 

@@ -1,5 +1,4 @@
 import { ActionButton, CardDisplay, ChipDisplay, EquityDisplay, HandOrderDisplay, PokerTable, Sidebar, TableContent } from '@/components';
-import { useGameSettings } from '@/contexts/GameSettings';
 import { useGameState } from '@/contexts/GameState';
 import { useTheme } from '@/contexts/ThemeContext';
 import { PlayerAction, resolveUserAction } from '@/logic/utils';
@@ -8,7 +7,6 @@ import { StyleSheet, View } from "react-native";
 const GameplayScreen = () => {
   const { theme } = useTheme();
   const { gameState } = useGameState();
-  const { gameSettings } = useGameSettings();
     
   return ( 
   <View style={[styles.outerContainer, {backgroundColor: theme.backgroundColor}]}>
@@ -26,7 +24,7 @@ const GameplayScreen = () => {
         ></TableContent>
       </PokerTable>
       <EquityDisplay equity={1.0}></EquityDisplay>
-      <CardDisplay hand={gameState.user.hand}></CardDisplay>
+      <CardDisplay hand={gameState.user.holeCards}></CardDisplay>
       <View style={styles.horizontal}>
         <ChipDisplay chips={gameState.user.chips}></ChipDisplay>
         <View style={styles.actionButtons}>

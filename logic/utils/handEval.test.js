@@ -1,5 +1,18 @@
 import { describe, expect, test } from 'vitest';
-import { bestFilteredHand, bestHand, flush, rankCounts, straight } from '.';
+import { bestFilteredHand, bestHand, flush, handScore, rankCounts, straight } from '.';
+
+describe('hand score', () => {
+  test('ace high', () => {
+    const hand = ['AS', 'KC', 'TH', '8H', '2D'];
+    expect(handScore('high-card', hand)).toBe(12 * (13**4) + 11 * (13**3) + 8 * (13**2) + 6 * 13 + 0);
+  });
+
+  test('two pair beats pair', () => {
+    const twoPair = ['AS', 'AC', '7H', '7D', '2D', '2S', '4S'];
+    const onePair = ['AS', 'AC', 'TH', '8H', '2D', '3S', '4S'];
+    expect((handScore('two-pair', twoPair) > handScore('one-pair', onePair))).toBe(true);
+  });
+});
 
 describe('best hand', () => {
   test('high card', () => {
@@ -35,10 +48,10 @@ describe('best hand', () => {
   });
 
   test ('straight', () => {
-    const hand = ['3C', '4H', '4S', '5D', '6D', '7S', '8S'];
+    const hand = ['AC', '5S', '2H', '2S', '4D', '3D', 'KS'];
     expect(bestHand(hand)).toStrictEqual({
       type: 'straight',
-      hand: ['8S', '7S', '6D', '5D', '4S']
+      hand: ['5S', '4D', '3D', '2S', 'AC']
     });
   });
 
