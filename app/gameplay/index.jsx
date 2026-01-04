@@ -1,7 +1,7 @@
 import { ActionButton, CardDisplay, ChipDisplay, EquityDisplay, HandOrderDisplay, PokerTable, Sidebar, TableContent } from '@/components';
 import { useGameState } from '@/contexts/GameState';
 import { useTheme } from '@/contexts/ThemeContext';
-import { PlayerAction, resolveUserAction } from '@/logic/utils';
+import { PLAYER_ACTIONS, resolveUserAction } from '@/logic/utils';
 import { StyleSheet, View } from "react-native";
 
 const GameplayScreen = () => {
@@ -15,12 +15,11 @@ const GameplayScreen = () => {
         width={55}
         height={25}
         numberOfSeats={10}
-        playerSeats={gameState.table.seats}
+        playerSeats={gameState.tableInfo.seats}
       >
         <TableContent
           stageNumber={gameState.stage}
-          potSize={gameState.table.pot}
-          communityCards={gameState.table.cards}
+          table={gameState.tableInfo}
         ></TableContent>
       </PokerTable>
       <EquityDisplay equity={1.0}></EquityDisplay>
@@ -29,17 +28,17 @@ const GameplayScreen = () => {
         <ChipDisplay chips={gameState.user.chips}></ChipDisplay>
         <View style={styles.actionButtons}>
           <ActionButton title="Check" onPress={() => resolveUserAction({
-            type: PlayerAction.CHECK
+            type: PLAYER_ACTIONS.CHECK
           })} />
           <ActionButton title="Call" onPress={() => resolveUserAction({
-            type: PlayerAction.CALL
+            type: PLAYER_ACTIONS.CALL
           })} />
           <ActionButton title="Fold" onPress={() => resolveUserAction({
-            type: PlayerAction.FOLD
+            type: PLAYER_ACTIONS.FOLD
           })} />
           <ActionButton title="Raise" onPress={() => resolveUserAction({
-            type: PlayerAction.RAISE,
-            amount: 50,
+            type: PLAYER_ACTIONS.RAISE,
+            amount: gameState.players['user'].chips,
           })} />
         </View>
       </View>

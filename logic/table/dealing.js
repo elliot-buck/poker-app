@@ -1,13 +1,12 @@
-import { getGameState, getTable } from '../state';
+import { commitTable, getPlayers, table } from '../state';
 
 /**
  * Deal numberOfCards table cards
  */
 
 export function dealTableCards(numberOfCards) {
-  const table = getTable();
-
   table.dealCards(numberOfCards);
+  commitTable();
 
   return table.deck;
 }
@@ -17,7 +16,7 @@ export function dealTableCards(numberOfCards) {
  */
 
 export function dealPlayerCards() {
-  const { table, players } = getGameState();
+  const players = getPlayers();
   const dealOrder = table.playerOrder;
 
   dealOrder.forEach(playerID => {

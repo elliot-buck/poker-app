@@ -1,11 +1,8 @@
+import { ACTIONS } from '.';
+
 let pendingActionResolver = null;
 
-export const PlayerAction = {
-  CHECK: 'CHECK',
-  CALL: 'CALL',
-  RAISE: 'RAISE',
-  FOLD: 'FOLD',
-};
+export const PLAYER_ACTIONS = ACTIONS;
 
 export const waitForUserAction = () => {
   return new Promise((resolve) => {

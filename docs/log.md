@@ -203,3 +203,4 @@
 - When a player is put all in, all new bets go to a seperate pot
 - Each pot stores contributing players
 - Each pot is distributed individually
+- Fix table object and react state interaction (ensure one source of truth)

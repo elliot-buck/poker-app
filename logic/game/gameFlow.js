@@ -9,10 +9,12 @@ const STAGES = {
 }
 
 export const playGame = async (difficulty, turnLength, equityDisplay, helpDisplay, startingChips, bigBlind) => {
-
   startGame(difficulty, turnLength, equityDisplay, helpDisplay, startingChips, bigBlind);
 
-  console.log('Round result:', await playRound());
+  for (let index = 0; index < 3; index++) {
+    const roundResult = await playRound();
+    console.log('Round result:', roundResult);
+  }
 }
 
 export const playRound = async () => {
@@ -28,6 +30,8 @@ export const playRound = async () => {
 export const runStage = async (stageID, stageNumber) => {
   const stageFunction = getStageFunction(stageID);
   setStage(stageNumber);
+
+  console.log('STARTING STAGE', stageID)
 
   return await stageFunction();
 }

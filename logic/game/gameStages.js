@@ -1,8 +1,8 @@
 import { resetState } from '.';
-import { getWinningPlayers, joinPlayer, setDealer, setUser } from '../players';
+import { getPlayerHands, getWinningPlayers, joinPlayer, setDealer, setUser } from '../players';
 import { resetSettings, updateSettings } from '../settings';
 import { getPlayers, getUserInfo } from '../state';
-import { bettingRound, dealPlayerCards, dealTableCards, resetTable, setBlinds } from '../table';
+import { bettingRound, dealPlayerCards, dealTableCards, distributePots, resetTable, setBlinds } from '../table';
 
 /**
  * Initiate the game
@@ -85,12 +85,18 @@ export const turn = async () => {
 export const river = async () => {
   dealTableCards(1);
 
+  const players = getPlayers();
+  const playerHands = getPlayerHands(players);
+
   const bettingWinner = await bettingRound();
-  const winningPlayers = getWinningPlayers(getPlayers());
-  
+
   if (bettingWinner) {
     return formatResult(bettingWinner);
   } 
+
+  const winningPlayers = getWinningPlayers(playerHands);
+
+  distributePots(playerHands);
 
   return formatResult(winningPlayers, true);
 }
@@ -106,40 +112,16 @@ const WIN_TYPE = {
 
 function formatResult(winningPlayers, winAtShowdown=false) {
   let winType;
-
-  console.log(winningPlayers, winAtShowdown);
-
-  if (!winAtShowdown) {
-    winType = WIN_TYPE.NO_SHOWDOWN;
-
-    return Object.fromEntries(
-      winningPlayers.map(playerID => (
-        playerID,
-        {
-          winType: winType
-        }
-      ))
-    );
-  }
-
-  winType = WIN_TYPE.SHOWDOWN;
-
-  console.log(Object.entries(winningPlayers).map(([playerID, winningHand]) => [
-      playerID,
-      {
-        winType: winType,
-        hand: winningHand
-      }
-    ]));
+  
+  winType = winAtShowdown ? WIN_TYPE.SHOWDOWN : WIN_TYPE.NO_SHOWDOWN;
 
   return Object.fromEntries(
-    Object.entries(winningPlayers).map(([playerID, winningHand]) => [
+    winningPlayers.map(playerID => (
       playerID,
       {
-        winType: winType,
-        hand: winningHand
+        winType: winType
       }
-    ])
+    ))
   );
 }
 

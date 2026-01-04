@@ -1,4 +1,4 @@
-import { getTable } from '../state';
+import { table } from '../state';
 
 export default class Player {
   constructor(name, chips = 0) {
@@ -15,7 +15,7 @@ export default class Player {
   }
 
   get seat() {
-    return getTable().getPlayerSeat(this._id);
+    return table.getPlayerSeat(this._id);
   }
 
   get name() {
@@ -32,11 +32,15 @@ export default class Player {
   }
 
   get hand() {
-    return [...this.holeCards, ...getTable().cards];
+    return [...this.holeCards, ...table.cards];
   }
 
   setChips(chips) {
     this.chips = chips;
+  }
+  
+  resetBet() {
+    this.betAmount = 0;
   }
 
   receiveCard(card) {
@@ -50,7 +54,7 @@ export default class Player {
   }
 
   resetStatus() {
-    this.setStatus('pending');
+    this.setStatus(Player.STATUS.PENDING);
   }
 
   setStatus(newStatus) {
@@ -64,23 +68,42 @@ export default class Player {
    */
 
   check() {
-
+    return Player.STATUS.IN;
   }
 
   bet(amount) {
-    if (amount > this.chips) throw new Error('Not enough chips');
-    this.chips -= amount;
-    this.betAmount += amount;
-    this.setStatus('in');
-    return amount;
+    let betAmount = amount;
+
+    if (betAmount > this.chips) {
+      betAmount = this.chips;
+      this.setStatus(Player.STATUS.ALL_IN);
+    } else {
+      this.setStatus(Player.STATUS.IN);
+    }
+    
+    this.chips -= betAmount;
+    this.betAmount += betAmount;
+    
+    return betAmount;
   }
 
   fold() {
-    this.setStatus('folded');
+    this.setStatus(Player.STATUS.FOLDED);
+  }
+
+  isAllIn() {
+    return (this.status === Player.STATUS.ALL_IN);
   }
 
   static TYPES = {
     USER: 'USER',
     COMPUTER: 'COMPUTER',
   };
+
+  static STATUS = {
+    PENDING: 'pending',
+    FOLDED: 'folded',
+    IN: 'in',
+    ALL_IN: 'all-in',
+  }
 }

@@ -1,12 +1,16 @@
 import { getGameState, setGameState } from '@/contexts/GameState';
+import { Table } from '../table';
 
-export const getTable = () => getGameState().table;
+// Real source of truth
+export const table = new Table();
 
-export const setTable = (updater) => {
-  setGameState(state => ({
-    ...state,
-    table: typeof updater === 'function'
-      ? updater(state.table)
-      : updater
+// Return table snapshot
+export const getTableInfo = () => getGameState.tableInfo;
+
+// Commit snapshot of table info to game state
+export function commitTable() {
+  setGameState(prev => ({
+    ...prev,
+    tableInfo: table.toSnapshot(),
   }));
-};
+}

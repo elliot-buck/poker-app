@@ -8,24 +8,26 @@ import { formatNumber, getSmallCardImage, STAGE_NAMES } from '../../UI_utils';
  * TableContent Component
  *
  * @param stageNumber - Current betting stage number
- * @param communityCards - Current community cards (array of card strings)
- * @param potSize - Current pot size 
+ * @param table - Table logic component
  * 
  */
 
 // Custom component which displays a hand of 2 cards
 const TableContent = ({
     stageNumber,
-    communityCards,
-    potSize,
+    table,
   }) => {
     const { theme } = useTheme();
+
+    console.log(table)
+    const communityCards = table.cards;
+    const potSize = table.pot;
 
     const normalisedCards = [...communityCards, ...Array(5 - communityCards.length).fill(null)];
     const stageName = STAGE_NAMES[stageNumber]
 
     const CARD_WIDTH = 40;
-    const CARD_HEIGHT = 56;
+    const CARD_HEIGHT = 56;;
 
     // Return Card Display
     return (  

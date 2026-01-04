@@ -10,3 +10,10 @@ export const setPlayers = (updater) => {
       : updater
   }));
 };
+
+export const refreshPlayers = () => {
+  setGameState(prev => ({
+    ...prev,
+    players: { ...prev.players },
+  }));
+};

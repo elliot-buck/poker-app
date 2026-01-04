@@ -1,4 +1,29 @@
-import { getTable } from '../state';
+import { distributeChips, getWinningPlayers } from '../players';
+import { commitTable, refreshPlayers, table } from '../state';
+
+/**
+ * Distribute pots
+ */
+
+export function distributePots(playerHands) {
+  table.subPots.entries().forEach(([contributors, amount]) => {
+    
+    const potPlayerHands = Object.fromEntries(
+      contributors.map(contributor => [
+        contributor, playerHands[contributor]
+      ])
+    );
+
+    const winningPlayers = getWinningPlayers(potPlayerHands);
+
+    distributeChips(amount / winningPlayers.length, winningPlayers);
+
+    table.setPot(contributors, 0);
+  });
+
+  refreshPlayers();
+  commitTable();
+}
 
 /**
  * Create a new shuffled deck for the table
@@ -7,9 +32,10 @@ import { getTable } from '../state';
  */
 
 export function resetTable() {
-  const table = getTable();
-
   table.resetTable();
+  table.addToPot(0);
+
+  commitTable();
 
   return table;
 }
@@ -19,7 +45,7 @@ export function resetTable() {
  */
 
 export function nextPlayer(previousPlayer) {
-  const playerOrder = getTable().playerOrder;
+  const playerOrder = table.playerOrder;
 
   // Get the index of the player's ID in the player order array
   let playerPositionIndex = playerOrder.indexOf(previousPlayer);

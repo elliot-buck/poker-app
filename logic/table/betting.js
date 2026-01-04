@@ -1,7 +1,7 @@
 import { nextPlayer } from '.';
-import { Player } from '../players';
-import { getGameState, getPlayers, getSettings, getTable, setTable } from '../state';
-import { waitForUserAction } from '../utils';
+import { Player, playerAction } from '../players';
+import { commitTable, getPlayers, getSettings, refreshPlayers, table } from '../state';
+import { ACTIONS, waitForUserAction } from '../utils';
 
 /**
  * Wait for UI elements to load
@@ -16,7 +16,7 @@ function nextTick() {
  */
 
 export function nextBet() {
-  const bettingPlayerID = getTable().bettingPlayerID;
+  const bettingPlayerID = table.bettingPlayerID;
 
   const next = nextPlayer(bettingPlayerID)
 
@@ -29,7 +29,7 @@ export function nextBet() {
 
 export function playerStatuses() {
   const players = getPlayers();
-  const betOrder = getTable().playerOrder;
+  const betOrder = table.playerOrder;
 
   return betOrder.map((playerID) => (players[playerID].status));
 }
@@ -37,7 +37,7 @@ export function playerStatuses() {
 // Run a round of betting
 
 export const bettingRound = async () => {
-  const { players, table } = getGameState();
+  const players = getPlayers();
   const { playerOrder: betOrder } = table;
 
   // Reset each player's status to 'pending'
@@ -66,6 +66,8 @@ export const bettingRound = async () => {
     }
 
     applyAction(bettingPlayer, action, table.maxBet);
+    refreshPlayers();
+    commitTable();
 
     // Break and return the winning player if there's only one player left
     const winningPlayer = checkForWin();
@@ -83,34 +85,13 @@ export const bettingRound = async () => {
  * Apply a user action (bet, fold ...)
  */
 
-export function applyAction(player, actionObject, currentMinimumBet) {
+export function applyAction(player, actionObject, minimumBet) {
   const { type, amount } = actionObject;
-  const table = getTable();
-
-  const amountToCall = currentMinimumBet - player.betAmount;
 
   // Apply action based on type
-  switch (type.toLowerCase()) {
-    case 'fold':
-      player.fold();
-      break;
-    case 'call':
-      player.bet(amountToCall);
-      table.pot += amountToCall;
-      break;
-    case 'check':
-      player.check();
-      break;
-    case 'raise':
-      console.log('raise1');
-      const betAmount = amountToCall + amount;
-      player.bet(betAmount);
-      table.pot += betAmount;
-      raiseMinimumBet(player.id, player.betAmount);
-      break;
-    default:
-      throw new Error(`Action type (${type}) must be fold/call/check/raise`);
-  }
+  const betAmount = playerAction(player, type, minimumBet, amount);
+
+  if (betAmount > 0) table.addToPot(betAmount);
 }
 
 /**
@@ -118,15 +99,12 @@ export function applyAction(player, actionObject, currentMinimumBet) {
  */
 
 export function raiseMinimumBet(bettingPlayerID, amount) {
-  console.log('raise');
-  const table = getTable();
   const players = getPlayers();
 
   table.setMaxBet(amount);
 
   for (const [playerID, player] of Object.entries(players)) {
     if (playerID != bettingPlayerID) {
-      console.log('resetting', playerID);
       player.resetStatus();
     }
   }
@@ -140,7 +118,7 @@ export function raiseMinimumBet(bettingPlayerID, amount) {
 
 export function checkForWin() {
   // Retrieve player order
-  const playerOrder = getTable().playerOrder;
+  const playerOrder = table.playerOrder || 0;
 
   // Length 1 means that player has won
   if (playerOrder.length === 1) {
@@ -172,16 +150,14 @@ export function getBlinds() {
 export function setBlinds() {
   const { BIG_BLIND, SMALL_BLIND } = getBlinds();
 
-  const { table, players } = getGameState();
+  const players = getPlayers();
   const playerOrder = table.playerOrder;
 
-  const bigBlindPlayer = players[playerOrder[0]];
   const smallBlindPlayer = players[playerOrder[1]];
+  const bigBlindPlayer = players[playerOrder[0]];
 
-  table.collectBlind(bigBlindPlayer, BIG_BLIND);
-  table.collectBlind(smallBlindPlayer, SMALL_BLIND);
-
-  table.maxBet = BIG_BLIND;
+  table.addToPot(playerAction(smallBlindPlayer, ACTIONS.RAISE, 0, SMALL_BLIND));
+  table.addToPot(playerAction(bigBlindPlayer, ACTIONS.RAISE, 25, BIG_BLIND-SMALL_BLIND));
 
   return table.pot;
 }
@@ -191,8 +167,6 @@ export function setBlinds() {
  */
 
 export function setBettingPlayer(playerID) {
-  setTable((prev) => {
-    prev.bettingPlayerID = playerID;
-    return prev;
-  });
+  table.bettingPlayerID = playerID;
+  return table.bettingPlayerID
 }
